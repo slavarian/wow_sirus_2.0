@@ -46,47 +46,91 @@ class Character(models.Model):
 
     specialization = models.ForeignKey(
         verbose_name="класс",
-        to = Game_class
+        to = Game_class,
+        on_delete=models.CASCADE
     )
 
     fraction = models.ForeignKey(
         verbose_name='фракция',
-        to = Game_fraction
+        to = Game_fraction,
+        on_delete=models.CASCADE
     )
 
     race = models.ForeignKey(
         verbose_name='расса',
-        to = Game_race
+        to = Game_race,
+        on_delete=models.CASCADE
     )
 
-    healmet = models.ForeignKey(
-        verbose_name= 'шлем',
-        to = ... ,
-        null=True, blank=True
-    )
+    # healmet = models.ForeignKey(
+    #     verbose_name= 'шлем',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
 
-    body_armor = models.ForeignKey(
-        verbose_name= 'нагудник',
-        to = ... ,
-        null=True, blank=True
-    )
+    # body_armor = models.ForeignKey(
+    #     verbose_name= 'нагудник',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
 
-    glows = models.ForeignKey(
-        verbose_name= 'перчатки',
-        to = ... ,
-        null=True, blank=True
-    )
+    # glows = models.ForeignKey(
+    #     verbose_name= 'перчатки',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
 
-    legs = models.ForeignKey(
-        verbose_name= 'ноги',
-        to = ... ,
-        null=True, blank=True
-    )
+    # legs = models.ForeignKey(
+    #     verbose_name= 'ноги',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
 
-    boots = models.ForeignKey(
-        verbose_name= 'обувь',
-        to = ... ,
-        null=True, blank=True
-    )
+    # boots = models.ForeignKey(
+    #     verbose_name= 'обувь',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
 
+    # ring1 = models.ForeignKey(
+    #     verbose_name= 'кольцо1',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
+
+    # ring2 = models.ForeignKey(
+    #     verbose_name= 'кольцо2',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
+
+    # trinket1 = models.ForeignKey(
+    #     verbose_name= 'тринькет1',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
+
+    # trinket2 = models.ForeignKey(
+    #     verbose_name= 'тринькет2',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
+
+    # amulet =  models.ForeignKey(
+    #     verbose_name= 'амулет',
+    #     to = ... ,
+    #     null=True, blank=True,
+    #     on_delete=models.CASCADE
+    # )
+
+    # gear_score PropertyField
 

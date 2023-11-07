@@ -2,7 +2,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
-from apps.game_characters.models import Character
+from game_characters.models import Character
 
 class MyUserManager(BaseUserManager):
     """ClientManager."""
