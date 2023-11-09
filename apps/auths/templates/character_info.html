@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ character.nick_name }}</h1>
+    <img src="{{ character.specialization.class_logo.url }}" alt="{{ character.specialization.title }} Logo" width="200" height="200">
+    <p>Уровень персонажа: {{ character.character_level }}</p>
+    <p>Класс: {{ character.specialization.title }}</p>
+    <p>Gear Score: {{ character.gear_score }}</p>
+    <p>PvP Рейтинг: {{ character.pvp_raiting }}</p>
+    <p>PvE Рейтинг: {{ character.pve_raiting }}</p>
+    <a href="{% url 'profile' %}">Вернуться к списку персонажей</a>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+<head>
+    {% if user.is_authenticated %}
+    <h1>Аккаунт: {{ user.email }}</h1>
+    <h1>баланс: {{ user.balance  }}$</h1>
+    <h1>Ваши персонажи: </h1>
+    <ul>
+        {% for character in user.game_characters.all %}
+            <li><a href="{% url 'character_info' character.id %}">{{ character.nick_name }}</a></li>
+        {% endfor %}
+    </ul>
+</head>
+<body>
+    <ul>
+       <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+    <button type="submit">Выход</button>
+  </form>
+    </ul>
+    {% endif %}
+
+</body>
+</html>
+</body>
+</html>

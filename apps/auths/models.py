@@ -4,6 +4,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from game_characters.models import Character
 
+
+
 class MyUserManager(BaseUserManager):
     """ClientManager."""
 
@@ -44,55 +46,33 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser, PermissionsMixin):
-
-    class Currencies(models.TextChoices):
-        TENGE = 'KZT', 'Tenge'
-        RUBLI = 'RUB', 'Rubli'
-        EURO = 'EUR', 'Euro'
-        DOLLAR = 'USD', 'Dollar'
-
+    
     email = models.EmailField(
-        verbose_name='почта/логин',
+        verbose_name='почта',
         unique=True,
         max_length=200
     )
-    nickname = models.CharField(
-        verbose_name='ник',
-        max_length=120
+    username = models.CharField(
+        verbose_name="никнейм",
+        max_length=200
     )
-
+    
     game_characters = models.ManyToManyField(
         verbose_name= 'ваши персонажи',
-        to = Character
-    )
-
-    pvp_raiting = models.DecimalField(
-        verbose_name='пвп рейтинг',
-        max_digits=11,
-        decimal_places=2,
-        default=0
-    )
-
-    pve_raiting = models.DecimalField(
-        verbose_name='пве рейтинг',
-        max_digits=11,
-        decimal_places=2,
-        default=0
+        to = Character ,
+        blank=True,
+        null=True
     )
 
     balance = models.DecimalField(
         verbose_name='баланс',
         max_digits=11,
         decimal_places=2,
-        default=0
+        default=0,
+        blank=True,
+        null=True
     )
 
-    currency = models.CharField(
-        verbose_name='валюта',
-        max_length=4,
-        choices=Currencies.choices,
-        default=Currencies.TENGE
-    )
     
     is_staff = models.BooleanField(
         default=False

@@ -5,7 +5,7 @@ from django import forms
 class UploadedFile(models.Model):
     file = models.FileField(
         verbose_name='название файла',
-        upload_to='uploads/')
+        upload_to='')
     uploaded_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.file

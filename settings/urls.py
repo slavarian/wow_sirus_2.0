@@ -21,7 +21,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('wow/', include('client_files.urls'))
+    path('wow/', include('client_files.urls')),
+    path('auths/',include('auths.urls'))
 ]
 
 

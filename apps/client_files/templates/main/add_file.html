@@ -2,4 +2,7 @@
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Загрузить файл</button>
+    {% for file in your_files_queryset %}  {# Замени на свой queryset #}
+    <p><a href="{% url 'download_file' file.id %}">{{ file.file_field.name }}</a></p>
+{% endfor %}
 </form>

@@ -1,5 +1,7 @@
 from django.db import models
 
+from wow_db.models import Body_armor
+
 class Game_class(models.Model):
     title = models.CharField(
         verbose_name= "название класса",
@@ -9,6 +11,8 @@ class Game_class(models.Model):
         verbose_name='лого класса',
         upload_to='images/'
     )
+    def __str__(self):
+        return self.title
 
 class Game_fraction(models.Model):
     title = models.CharField(
@@ -19,6 +23,8 @@ class Game_fraction(models.Model):
         verbose_name='лого фракции',
         upload_to='images/'
     )
+    def __str__(self):
+        return self.title
 
 class Game_race(models.Model):
     title = models.CharField(
@@ -29,6 +35,8 @@ class Game_race(models.Model):
         verbose_name='лого рассы',
         upload_to='images/'
     )
+    def __str__(self):
+        return self.title
 
 
 class Character(models.Model):
@@ -61,7 +69,47 @@ class Character(models.Model):
         to = Game_race,
         on_delete=models.CASCADE
     )
+    
+    pvp_raiting = models.DecimalField(
+        verbose_name='пвп рейтинг',
+        max_digits=11,
+        decimal_places=2,
+        default=0
+    )
 
+    pve_raiting = models.DecimalField(
+        verbose_name='пве рейтинг',
+        max_digits=11,
+        decimal_places=2,
+        default=0
+    )
+
+  
+
+    body_armor = models.ForeignKey(
+        verbose_name= 'нагудник',
+        to=Body_armor,
+        null=True, blank=True,
+        on_delete=models.CASCADE
+    )
+    @property
+    def gear_score(self):
+        total_item_level = 0
+        
+        if self.body_armor:
+            total_item_level += self.body_armor.item_level
+        
+        # if self.helmet:
+        #     total_item_level += self.helmet.item_level
+        
+        # if self.gloves:
+        #     total_item_level += self.gloves.item_level
+
+        return total_item_level
+
+    # def __str__(self):
+    #     return self.nick_name
+    
     # healmet = models.ForeignKey(
     #     verbose_name= 'шлем',
     #     to = ... ,
@@ -69,12 +117,6 @@ class Character(models.Model):
     #     on_delete=models.CASCADE
     # )
 
-    # body_armor = models.ForeignKey(
-    #     verbose_name= 'нагудник',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
 
     # glows = models.ForeignKey(
     #     verbose_name= 'перчатки',
@@ -131,6 +173,7 @@ class Character(models.Model):
     #     null=True, blank=True,
     #     on_delete=models.CASCADE
     # )
+
 
     # gear_score PropertyField
 
