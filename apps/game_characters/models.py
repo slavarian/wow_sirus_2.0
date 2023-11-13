@@ -97,7 +97,7 @@ class Character(models.Model):
         total_item_level = 0
         
         if self.body_armor:
-            total_item_level += self.body_armor.item_level
+            total_item_level += self.body_armor.level
         
         # if self.helmet:
         #     total_item_level += self.helmet.item_level
