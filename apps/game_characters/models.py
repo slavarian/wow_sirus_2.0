@@ -2,11 +2,29 @@ from django.db import models
 
 from wow_db.models import Body_armor
 
+class Game_specialization(models.Model):
+    title = models.CharField(
+        verbose_name= "название подкласса",
+        max_length=50
+    )
+    class_logo = models.ImageField(
+        verbose_name='лого подкласса',
+        upload_to='images/'
+    )
+    def __str__(self):
+        return self.title
+
 class Game_class(models.Model):
     title = models.CharField(
         verbose_name= "название класса",
         max_length=50
     )
+    specialization = models.ForeignKey(
+        verbose_name="подкласс",
+        to=Game_specialization,
+        on_delete=models.CASCADE
+    )
+
     class_logo = models.ImageField(
         verbose_name='лого класса',
         upload_to='images/'
@@ -14,38 +32,46 @@ class Game_class(models.Model):
     def __str__(self):
         return self.title
 
-class Game_fraction(models.Model):
-    title = models.CharField(
-        verbose_name= "название фракции",
-        max_length=50
-    )
-    fraction_logo = models.ImageField(
-        verbose_name='лого фракции',
-        upload_to='images/'
-    )
-    def __str__(self):
-        return self.title
-
-class Game_race(models.Model):
-    title = models.CharField(
-        verbose_name= "название расы",
-        max_length=50
-    )
-    race_logo = models.ImageField(
-        verbose_name='лого рассы',
-        upload_to='images/'
-    )
-    def __str__(self):
-        return self.title
 
 
 class Character(models.Model):
+    class Genders(models.TextChoices):
+        MALE = 'Male','Мужчина'
+        FEMALE =  'Female','Женщина'
+
+    class Game_races(models.TextChoices):
+        Orc = 'Orc','Орк'
+        Human =  'Human','Человек'
+        Bood_elf ='Bood Elf','Эльф крови'
+        Night_elf ='Night Elf','Ночной эльф'
+        Goblin ='Goblin','Гоблин'
+        Tauren ='Tauren','Корова'
+        Troll ='Troll','Троль'
+        Undead = 'Undead','Нежить'
+        Pandaren= 'Pandaren','Панда'
+        Gnome = 'Gnome','Гном'
+        Dwarf= 'Dwarf','Дворф'
+        Draeneir= 'Draeneir','Дреней'
+        Worgen = 'Worgen','Ворген'
+        
+    class Game_fraction(models.TextChoices):
+        Horde = 'Horde', 'Орда'
+        Alliance = 'Alliance', 'Альянс'
+
+    user = models.ForeignKey('auths.MyUser', on_delete=models.CASCADE)
+    
     nick_name = models.CharField(
         verbose_name= "никнейм",
         max_length=28 , 
         unique= True
     )
-
+    gender = models.CharField(
+        verbose_name='пол персонажа',
+        max_length=22,
+        choices=Genders.choices,
+        default=Genders.MALE
+    )
+    
     character_level = models.IntegerField(
         verbose_name='уровень персонажа',
         default= 1,
@@ -57,17 +83,18 @@ class Character(models.Model):
         to = Game_class,
         on_delete=models.CASCADE
     )
-
-    fraction = models.ForeignKey(
+    fraction = models.CharField(
         verbose_name='фракция',
-        to = Game_fraction,
-        on_delete=models.CASCADE
+        max_length=22,
+        choices=Game_fraction.choices ,
+        default=Game_fraction.Horde
     )
 
-    race = models.ForeignKey(
+    race = models.CharField(
         verbose_name='расса',
-        to = Game_race,
-        on_delete=models.CASCADE
+        max_length=22,
+        choices=Game_races.choices,
+        default=Game_races.Orc
     )
     
     pvp_raiting = models.DecimalField(
@@ -83,21 +110,77 @@ class Character(models.Model):
         decimal_places=2,
         default=0
     )
-
-  
-
+    str = models.IntegerField(
+        verbose_name='сила',
+        default=0,
+        null=True, blank=True,
+    )
+    stamina =  models.IntegerField(
+        verbose_name='выносливость',
+        default=0,
+        null=True, blank=True,
+    )
+    intellect = models.IntegerField(
+        verbose_name='интелект',
+        default=0,
+        null=True, blank=True,
+    )
+    agi = models.IntegerField(
+        verbose_name='ловкость',
+        default=0,
+        null=True, blank=True,
+    )
+    crit =  models.IntegerField(
+        verbose_name='крит',
+        default=0,
+        null=True, blank=True,
+    )
+    haste_rating= models.IntegerField(
+        verbose_name='скорость',
+        default=0,
+        null=True, blank=True,
+    )
+    versatility = models.IntegerField(
+        verbose_name='универсальность',
+        default=0,
+        null=True, blank=True,
+    )
+    masteryy = models.IntegerField(
+        verbose_name='исскустность',
+        default=0,
+        null=True, blank=True,
+    )
+    armor_rate = models.IntegerField(
+        verbose_name='броня',
+        default=0,
+        null=True, blank=True,
+    )
+    health = models.IntegerField(
+        verbose_name='здоровье',
+        default=0,
+        null=True, blank=True,
+    )
+    mana = models.IntegerField(
+        verbose_name='мана',
+        default=0,
+        null=True, blank=True,
+    )
     body_armor = models.ForeignKey(
         verbose_name= 'нагудник',
         to=Body_armor,
         null=True, blank=True,
         on_delete=models.CASCADE
     )
+    def equip_body_armor(self, body_armor):
+        self.body_armor = body_armor
+        self.save()
+    
     @property
     def gear_score(self):
         total_item_level = 0
         
         if self.body_armor:
-            total_item_level += self.body_armor.level
+            total_item_level += self.body_armor.item_level
         
         # if self.helmet:
         #     total_item_level += self.helmet.item_level
@@ -106,6 +189,9 @@ class Character(models.Model):
         #     total_item_level += self.gloves.item_level
 
         return total_item_level
+    
+    def __str__(self):
+        return self.nick_name
 
     # def __str__(self):
     #     return self.nick_name

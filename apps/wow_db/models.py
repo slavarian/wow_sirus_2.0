@@ -43,6 +43,8 @@ class Body_armor(models.Model):
                               blank=True,null=True)
     item_url = models.URLField( default=None,
                              verbose_name="ссылка на предмет")
+    item_img = models.URLField( default=None,
+                             verbose_name="ссылка на изорбажение предмета")
     
     def __str__(self):
         return self.title
@@ -93,6 +95,8 @@ class Head_armor(models.Model):
                               blank=True,null=True)
     item_url = models.URLField( default=None,
                              verbose_name="ссылка на предмет")
+    item_img = models.URLField( default=None,
+                             verbose_name="ссылка на изорбажение предмета")
     
     def __str__(self):
         return self.title

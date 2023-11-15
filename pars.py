@@ -4,7 +4,7 @@ import json
 import os
 import sys
 import django
-
+from bs4 import BeautifulSoup
 from parsdict import item_ids
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.base')
 django.setup()
@@ -37,16 +37,35 @@ for i in item_ids:
     item_crit = json_dict.get("critstrkrtng", "")
     item_versatility = json_dict.get("versatility", "")
     item_reqlevel = json_dict.get("reqlevel", "")
+    icon_tag = root.find(".//icon")
+    ins_tag = root.find(".//ins")
+    if icon_tag is not None:
+        icon_content = icon_tag.text.strip()
+        item_img_url = f"https://wow.zamimg.com/images/wow/icons/medium/{icon_content}.jpg"
 
-    body_armor = Head_armor(
-        title=item_name,
-        item_level=item_level,
-        quality=item_quality,
-        armor_type=item_subclass,
-        armor=item_armor
-    )
+    else:
+        print("Тег 'icon' не найден в XML-данных.")
 
-    # Проверка и установка полей, если данные присутствуют
+
+    body_armor = Body_armor(
+    title=item_name,
+    item_level=item_level,
+    quality=item_quality,
+    armor_type=item_subclass,
+    item_img=item_img_url,
+    armor=int(item_armor) if item_armor else None,
+    strength=int(item_str) if item_str else None,
+    stamina=int(item_sta) if item_sta else None,
+    agility=int(item_agi) if item_agi else None,
+    intelect=int(item_int) if item_int else None,
+    haste_rating=float(item_hastertng) if item_hastertng else None,
+    crit_rating=float(item_crit) if item_crit else None,
+    versatility=float(item_versatility) if item_versatility else None,
+    mastery=float(item_mastery) if item_mastery else None,
+    required_level = int(item_reqlevel) 
+            )
+
+
     if item_str:
         try:
             body_armor.strength = int(item_str)
@@ -106,8 +125,6 @@ for i in item_ids:
             print(f"Ошибка при попытке преобразовать '{item_armor}' в число.")
   
    
-
-
     body_armor.required_level = item_reqlevel
     item_url = url.split('&')[0]
     body_armor.item_url = item_url

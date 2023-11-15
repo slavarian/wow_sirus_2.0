@@ -14,12 +14,15 @@
     <h1>баланс: {{ user.balance  }}$</h1>
     <h1>Ваши персонажи: </h1>
     <ul>
-        {% for character in user.game_characters.all %}
-            <li><a href="{% url 'character_info' character.id %}">{{ character.nick_name }}</a></li>
-        {% endfor %}
-    </ul>
+      {% for character in characters %}
+        <li><a href="{% url 'character_info' character.id %}">{{ character.nick_name }}</a></li>
+      {% endfor %}
+    </ul>   
+
+ 
 </head>
 <body>
+    <a href="/auths/create_character">Создать персонажа</a>
     <ul>
        <form action="{% url 'logout' %}" method="post">
         {% csrf_token %}

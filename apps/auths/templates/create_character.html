@@ -1,0 +1,40 @@
+<form method="post" action="{% url 'create_character' %}" id="character-form">
+    {% csrf_token %}
+   
+    {{ form.nick_name }}
+    {{ form.gender }}
+    
+    <label for="id_fraction">Фракция:</label>
+    {{ form.fraction }}
+    <label for="id_race">Расса:</label>
+    <select name="race" id="id_race">
+        <option value=""></option>
+    </select>
+    {{ form.specialization }}
+    <button type="submit">Создать персонажа</button>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function()                    {
+        $('#id_fraction').change(function() {
+            var selectedFraction = $(this).val();
+            
+            $.ajax({
+                url: '{% url "get_races" %}',  
+                data: {'fraction': selectedFraction},
+                dataType: 'json',
+                success: function(data) {
+                    var raceSelect = $('#id_race');
+                    raceSelect.empty();
+                    $.each(data, function(key, value) {
+                        raceSelect.append($('<option></option>').attr('value', key).text(value));
+                    });
+                }
+            });
+        });
+
+        $('#id_fraction').change();
+    });
+</script>
