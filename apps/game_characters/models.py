@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 from wow_db.models import Body_armor
 
 class Game_specialization(models.Model):
@@ -71,10 +71,9 @@ class Character(models.Model):
         choices=Genders.choices,
         default=Genders.MALE
     )
-    
     character_level = models.IntegerField(
         verbose_name='уровень персонажа',
-        default= 1,
+        default= 70,
         null=True, blank=True
     )
 
@@ -157,24 +156,38 @@ class Character(models.Model):
     )
     health = models.IntegerField(
         verbose_name='здоровье',
-        default=0,
+        default=100,
         null=True, blank=True,
     )
     mana = models.IntegerField(
         verbose_name='мана',
+        default=100,
+        null=True, blank=True,
+    )
+    damage = models.IntegerField(
+        verbose_name='Урон',
         default=0,
         null=True, blank=True,
     )
+    magical_damage = models.IntegerField(
+        verbose_name='Магический урон',
+        default=0,
+        null=True, blank=True,
+    )
+
     body_armor = models.ForeignKey(
         verbose_name= 'нагудник',
         to=Body_armor,
         null=True, blank=True,
         on_delete=models.CASCADE
     )
+ 
+   
     def equip_body_armor(self, body_armor):
         self.body_armor = body_armor
         self.save()
     
+
     @property
     def gear_score(self):
         total_item_level = 0
@@ -189,9 +202,43 @@ class Character(models.Model):
         #     total_item_level += self.gloves.item_level
 
         return total_item_level
-    
-    def __str__(self):
-        return self.nick_name
+
+    @property
+    def total_stats(self):
+        total_agility = 0
+        total_strength = 0
+        total_intellect = 0
+        total_stamina = 0
+        total_crit = 0
+        total_haste_rating = 0
+        total_versatility = 0
+        total_mastery = 0
+        total_armor_rating = 0
+        
+        
+        if self.body_armor:
+            total_agility += self.body_armor.agility or 0
+            total_strength += self.body_armor.strength or 0
+            total_intellect += self.body_armor.intelect or 0
+            total_stamina += self.body_armor.stamina or 0
+            total_crit += self.body_armor.crit_rating or 0
+            total_haste_rating += self.body_armor.haste_rating or 0
+            total_versatility += self.body_armor.versatility or 0
+            total_mastery += self.body_armor.mastery or 0
+            total_armor_rating += self.body_armor.armor or 0
+  
+
+        return {
+            'agility': total_agility,
+            'strength': total_strength,
+            'intellect': total_intellect,
+            'stamina': total_stamina,
+            'crit': total_crit,
+            'haste_rating': total_haste_rating,
+            'versatility': total_versatility,
+            'mastery': total_mastery,
+            'armor_rating': total_armor_rating,
+        }
 
     # def __str__(self):
     #     return self.nick_name

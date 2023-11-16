@@ -14,7 +14,10 @@
         <h1>{{ character.nick_name }}</h1>
         <img src="{{ character.specialization.class_logo.url }}" alt="{{ character.specialization.title }} Logo" width="200" height="200">
         <p>Уровень персонажа: {{ character.character_level }}</p>
-        <p>Класс: {{ character.specialization.title }}</p>
+        <p>Фракция: {{ character.get_fraction_display }}</p>
+        <p>Раса: {{ character.get_race_display }}</p>
+        <p>Пол персонажа: {{ character.get_gender_display }}</p>
+        <p>Класс: {{ character.specialization.title }} ({{ character.specialization.specialization.title }})</p>
         <p>Gear Score: {{ character.gear_score }}</p>
         <p>PvP Рейтинг: {{ character.pvp_raiting }}</p>
         <p>PvE Рейтинг: {{ character.pve_raiting }}</p>
@@ -27,7 +30,20 @@
             background-position: left center;
         }
     </style>
-    
+<div class="container">
+    <div class="character-info">
+    <h2>Характеристики персонажа</h2>
+    <p>Сила: {{  character.total_stats.strength  }}</p>
+    <p>Интелект: {{  character.total_stats.intellect  }}</p>
+    <p>Ловкость: {{  character.total_stats.agility }}</p>
+    <p>Выносливость: {{  character.total_stats.stamina  }}</p>
+    <p>Критический удар: {{  character.total_stats.crit  }}</p>
+    <p>Cкорость: {{  character.total_stats.haste_rating  }}</p>
+    <p>Искустность: {{  character.total_stats.mastery  }}</p>
+    <p>Универсальность: {{  character.total_stats.versatility  }}</p>
+
+    </div>
+</div>
     <div class="constructor">
         <h2>Конструктор</h2>
         <div class="custom-dropdown">
@@ -37,76 +53,94 @@
                     <div data-value="{{ armor.id }}" title="{{ armor.title }} - {{ armor.item_level }} - {{ armor.quality }}">
                         <img src="{{ armor.item_img }}" alt="{{ armor.title }}"> {{ armor.title }}
                     </div>
+                    
                 {% endfor %}
             </div>
             <input type="hidden" id="bodyArmor" name="bodyArmor">
         </div>
-        <button onclick="equipItem('bodyArmor')">Equip Body Armor</button>
+        <button onclick="equipItem('bodyArmor')">Надеть</button>
     </div>
     
 
     <div class="equipment">
-        <h2>Экиперовка</h2>
-        <div class="item-tooltip" id="bodyArmorTooltip">
-            <label for="bodyArmor">Нагрудник:</label>
-            <a href="{{character.body_armor.item_url}}">
-                <img class="tooltip" src="{{ character.body_armor.item_img }}" width="50" height="50" onmouseover="showTooltip('bodyArmorTooltip')" onmouseout="hideTooltip('bodyArmorTooltip')">
-            </a>
-            <div class="tooltip-content">
+        <h2>Экипировка</h2>
+    
+        <div class="equipped-item">
+            <div class="tooltip-container" onmouseover="showTooltip('equippedArmorTooltip')" onmouseout="hideTooltip('equippedArmorTooltip')">
+                <a href="{{ character.body_armor.item_url }}">
+                    <img class="tooltip" src="{{ character.body_armor.item_img }}" width="50" height="50">
+                </a>
+                <div class="tooltip-content" id="equippedArmorTooltip">
                 <p class="purple">{{ character.body_armor.title }}</p>
                 <p class="yellow">Уровень предмета: {{ character.body_armor.item_level }}</p>
                 <p>Качество: {{ character.body_armor.quality }}</p>
                 <p>Тип брони:  {{ character.body_armor.armor_type }} </p>
                 <p>Броня:  {{ character.body_armor.armor }}</p>
                 {% if character.body_armor.strength %}
-                <p>Сила: {{ character.body_armor.strength }}</p>
+                <p>+{{ character.body_armor.strength }} к силе</p>
                 {% endif %}
                 {% if character.body_armor.intelect  %}
-                <p>Интелект: {{ character.body_armor.intelect  }}</p>
+                <p>+{{ character.body_armor.intelect  }} к интелекту</p>
                 {% endif %}
                 {% if character.body_armor.agility  %}
-                <p>Ловкость: {{ character.body_armor.agility  }}</p>
+                <p>+{{ character.body_armor.agility  }} к ловкости</p>
                 {% endif %}
                 {% if character.body_armor.stamina %}
-                <p>Выносливость: {{ character.body_armor.stamina }}</p>
+                <p>+{{ character.body_armor.stamina }} к выносливости</p>
                 {% endif %}
                 {% if character.body_armor.haste_rating  %}
-                <p class="green">Скорость: {{ character.body_armor.haste_rating  }}</p>
+                <p class="green">+{{ character.body_armor.haste_rating }} к скорости</p>
                 {% endif %}
                 {% if character.body_armor.crit_rating  %}
-                <p class="green">Критический удар: {{ character.body_armor.crit_rating  }}</p>
+                <p class="green">+{{ character.body_armor.crit_rating }} к критическому удару</p>
                 {% endif %}
                 {% if character.body_armor.versatility  %}
-                <p class="green">Универсальность: {{ character.body_armor.versatility  }}</p>
+                <p class="green">+{{ character.body_armor.versatility }} к универсальности</p>
                 {% endif %}
                 {% if character.body_armor.mastery  %}
-                <p class="green">Искустность: {{ character.body_armor.mastery  }}</p>
+                <p class="green">+{{ character.body_armor.mastery }} к искустности</p>
                 {% endif %}
                 {% if character.body_armor.required_level   %}
-                <p>Требуется {{ character.body_armor.required_level   }}-й ур.</p>
+                <p>Требуется {{ character.body_armor.required_level  }}-й ур.</p>
                 {% endif %}
+                </div>
             </div>
+            <div class="arrow" onclick="toggleArmorList('armorDropdown')">&#9662;</div>
+        </div>
+    
+        <div class="armor-dropdown" id="armorDropdown">
+            <select id="armorList" name="armorList" onchange="changeArmor()">
+                {% for armor in body_armors %}
+                    <option value="{{ armor.id }}">{{ armor.title }}</option>
+                {% endfor %}
+            </select>
         </div>
     </div>
-</div>
+    
+
 
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'style/js/script.js' %}"></script>
 <script>
-    function equipItem(gearType) {
-        var selectedItem = $("#" + gearType).val();
+    function toggleArmorList(dropdownId) {
+        var dropdown = document.getElementById(dropdownId);
+        dropdown.classList.toggle('show');
+    }
+
+    function changeArmor() {
+        var selectedArmorId = document.getElementById('armorList').value;
+
         $.ajax({
             type: "POST",
             url: "{% url 'equip_gear' %}",
             data: {
                 'character_id': {{ character.id }},
-                'gear_type': gearType,
-                'selected_item': selectedItem,
+                'gear_type': 'bodyArmor',
+                'selected_item': selectedArmorId,
                 'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function (data) {
-           
                 location.reload();
             },
             error: function (xhr, errmsg, err) {
@@ -114,8 +148,15 @@
             }
         });
     }
-</script>
 
+    function showTooltip(tooltipId) {
+        document.getElementById(tooltipId).style.display = 'block';
+    }
+
+    function hideTooltip(tooltipId) {
+        document.getElementById(tooltipId).style.display = 'none';
+    }
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const selectedArmor = document.getElementById('selectedArmor');
@@ -139,41 +180,11 @@
             armorOptions.classList.toggle('show');
         });
     });
+
+
 </script>
+
 </body>
 </html>
 
 
-
-<p class="purple">{{ character.body_armor.title }}</p>
-<p class="yellow">Уровень предмета: {{ character.body_armor.item_level }}</p>
-<p>Качество: {{ character.body_armor.quality }}</p>
-<p>Тип брони:  {{ character.body_armor.armor_type }} </p>
-<p>Броня:  {{ character.body_armor.armor }}</p>
-{% if character.body_armor.strength %}
-<p>Сила: {{ character.body_armor.strength }}</p>
-{% endif %}
-{% if character.body_armor.intelect  %}
-<p>Интелект: {{ character.body_armor.intelect  }}</p>
-{% endif %}
-{% if character.body_armor.agility  %}
-<p>Ловкость: {{ character.body_armor.agility  }}</p>
-{% endif %}
-{% if character.body_armor.stamina %}
-<p>Выносливость: {{ character.body_armor.stamina }}</p>
-{% endif %}
-{% if character.body_armor.haste_rating  %}
-<p class="green">Скорость: {{ character.body_armor.haste_rating  }}</p>
-{% endif %}
-{% if character.body_armor.crit_rating  %}
-<p class="green">Критический удар: {{ character.body_armor.crit_rating  }}</p>
-{% endif %}
-{% if character.body_armor.versatility  %}
-<p class="green">Универсальность: {{ character.body_armor.versatility  }}</p>
-{% endif %}
-{% if character.body_armor.mastery  %}
-<p class="green">Искустность: {{ character.body_armor.mastery  }}</p>
-{% endif %}
-{% if character.body_armor.required_level   %}
-<p>Требуется {{ character.body_armor.required_level   }}-й ур.</p>
-{% endif %}

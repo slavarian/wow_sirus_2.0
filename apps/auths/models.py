@@ -58,10 +58,9 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     )
     
     game_characters = models.ManyToManyField(
-        verbose_name= 'ваши персонажи',
-        to = Character ,
-        blank=True,
-        null=True
+        'game_characters.Character',
+        related_name='Персонажи',
+        blank=True,  
     )
 
     balance = models.DecimalField(
