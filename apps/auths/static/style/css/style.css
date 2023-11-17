@@ -23,6 +23,7 @@ body {
 .item-tooltip {
     position: relative;
     display: inline-block;
+
 }
 
 .tooltip-content {
@@ -36,6 +37,7 @@ body {
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow-wrap: break-word;
+    
 }
 
 .item-tooltip:hover .tooltip-content {

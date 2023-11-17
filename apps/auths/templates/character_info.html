@@ -43,34 +43,16 @@
     <p>Универсальность: {{  character.total_stats.versatility  }}</p>
 
     </div>
-</div>
-    <div class="constructor">
-        <h2>Конструктор</h2>
-        <div class="custom-dropdown">
-            <div id="selectedArmor">Выберите нагрудник</div>
-            <div class="dropdown-content" id="armorOptions">
-                {% for armor in body_armors %}
-                    <div data-value="{{ armor.id }}" title="{{ armor.title }} - {{ armor.item_level }} - {{ armor.quality }}">
-                        <img src="{{ armor.item_img }}" alt="{{ armor.title }}"> {{ armor.title }}
-                    </div>
-                    
-                {% endfor %}
-            </div>
-            <input type="hidden" id="bodyArmor" name="bodyArmor">
-        </div>
-        <button onclick="equipItem('bodyArmor')">Надеть</button>
-    </div>
-    
+
 
     <div class="equipment">
         <h2>Экипировка</h2>
-    
         <div class="equipped-item">
-            <div class="tooltip-container" onmouseover="showTooltip('equippedArmorTooltip')" onmouseout="hideTooltip('equippedArmorTooltip')">
+            <div class="tooltip-container" onmouseover="showTooltip('bodyArmorTooltip')" onmouseout="hideTooltip('bodyArmorTooltip')">
                 <a href="{{ character.body_armor.item_url }}">
                     <img class="tooltip" src="{{ character.body_armor.item_img }}" width="50" height="50">
                 </a>
-                <div class="tooltip-content" id="equippedArmorTooltip">
+                <div class="tooltip-content" id="bodyArmorTooltip">
                 <p class="purple">{{ character.body_armor.title }}</p>
                 <p class="yellow">Уровень предмета: {{ character.body_armor.item_level }}</p>
                 <p>Качество: {{ character.body_armor.quality }}</p>
@@ -104,19 +86,66 @@
                 <p>Требуется {{ character.body_armor.required_level  }}-й ур.</p>
                 {% endif %}
                 </div>
-            </div>
-            <div class="arrow" onclick="toggleArmorList('armorDropdown')">&#9662;</div>
+            <div class="arrow" onclick="toggleArmorList('bodyArmorDropdown')">&#9662;</div>
         </div>
-    
-        <div class="armor-dropdown" id="armorDropdown">
-            <select id="armorList" name="armorList" onchange="changeArmor()">
+        <div class="armor-dropdown" id="bodyArmorDropdown">
+            <select id="bodyArmorList" name="bodyArmorList" onchange="changeBodyArmor()">
                 {% for armor in body_armors %}
                     <option value="{{ armor.id }}">{{ armor.title }}</option>
                 {% endfor %}
             </select>
         </div>
+
+        
+        <div class="equipped-item">
+            <div class="tooltip-container" onmouseover="showTooltip('headArmorTooltip')" onmouseout="hideTooltip('headArmorTooltip')">
+                <a href="{{ character.head_armor.item_url }}">
+                    <img class="tooltip" src="{{ character.head_armor.item_img }}" width="50" height="50">
+                </a>
+                <div class="tooltip-content" id="headArmorTooltip">
+                <p class="purple">{{ character.head_armor.title }}</p>
+                <p class="yellow">Уровень предмета: {{ character.head_armor.item_level }}</p>
+                <p>Качество: {{ character.head_armor.quality }}</p>
+                <p>Тип брони:  {{ character.head_armor.armor_type }} </p>
+                <p>Броня:  {{ character.head_armor.armor }}</p>
+                {% if character.head_armor.strength %}
+                <p>+{{ character.head_armor.strength }} к силе</p>
+                {% endif %}
+                {% if character.head_armor.intelect  %}
+                <p>+{{ character.head_armor.intelect  }} к интелекту</p>
+                {% endif %}
+                {% if character.head_armor.agility  %}
+                <p>+{{ character.head_armor.agility  }} к ловкости</p>
+                {% endif %}
+                {% if character.head_armor.stamina %}
+                <p>+{{ character.head_armor.stamina }} к выносливости</p>
+                {% endif %}
+                {% if character.head_armor.haste_rating  %}
+                <p class="green">+{{ character.head_armor.haste_rating }} к скорости</p>
+                {% endif %}
+                {% if character.head_armor.crit_rating  %}
+                <p class="green">+{{ character.head_armor.crit_rating }} к критическому удару</p>
+                {% endif %}
+                {% if character.head_armor.versatility  %}
+                <p class="green">+{{ character.head_armor.versatility }} к универсальности</p>
+                {% endif %}
+                {% if character.head_armor.mastery  %}
+                <p class="green">+{{ character.head_armor.mastery }} к искустности</p>
+                {% endif %}
+                {% if character.head_armor.required_level   %}
+                <p>Требуется {{ character.head_armor.required_level  }}-й ур.</p>
+                {% endif %}
+                </div>
+            <div class="arrow" onclick="toggleArmorList('headArmorDropdown')">&#9662;</div>
+        </div>
+        <div class="armor-dropdown" id="headArmorDropdown">
+            <select id="headArmorList" name="headArmorList" onchange="changeHeadArmor()">
+                {% for armor in head_armors %}
+                    <option value="{{ armor.id }}">{{ armor.title }}</option>
+                {% endfor %}
+            </select>
+        </div>
     </div>
-    
 
 
 
@@ -128,8 +157,16 @@
         dropdown.classList.toggle('show');
     }
 
-    function changeArmor() {
-        var selectedArmorId = document.getElementById('armorList').value;
+    function showTooltip(tooltipId) {
+        document.getElementById(tooltipId).style.display = 'block';
+    }
+
+    function hideTooltip(tooltipId) {
+        document.getElementById(tooltipId).style.display = 'none';
+    }
+
+    function changeBodyArmor() {
+        var selectedBodyArmorId = document.getElementById('bodyArmorList').value;
 
         $.ajax({
             type: "POST",
@@ -137,7 +174,7 @@
             data: {
                 'character_id': {{ character.id }},
                 'gear_type': 'bodyArmor',
-                'selected_item': selectedArmorId,
+                'selected_item': selectedBodyArmorId,
                 'csrfmiddlewaretoken': '{{ csrf_token }}'
             },
             success: function (data) {
@@ -149,42 +186,72 @@
         });
     }
 
-    function showTooltip(tooltipId) {
-        document.getElementById(tooltipId).style.display = 'block';
+    function changeHeadArmor() {
+        var selectedHeadArmorId = document.getElementById('headArmorList').value;
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'equip_gear' %}",
+            data: {
+                'character_id': {{ character.id }},
+                'gear_type': 'headArmor',
+                'selected_item': selectedHeadArmorId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                location.reload();
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("Error: " + xhr.status + ": " + xhr.responseText);
+            }
+        });
     }
 
-    function hideTooltip(tooltipId) {
-        document.getElementById(tooltipId).style.display = 'none';
-    }
-</script>
-<script>
     document.addEventListener('DOMContentLoaded', function () {
-        const selectedArmor = document.getElementById('selectedArmor');
-        const armorOptions = document.getElementById('armorOptions');
+        const selectedBodyArmor = document.getElementById('selectedBodyArmor');
+        const bodyArmorOptions = document.getElementById('bodyArmorOptions');
         const bodyArmorInput = document.getElementById('bodyArmor');
 
-        armorOptions.addEventListener('click', function (event) {
-            if (event.target.tagName === 'DIV') {
-                selectedArmor.textContent = event.target.textContent;
+        bodyArmorOptions.addEventListener('click', function (event) {
+            if (event.target.tagName === 'img') {
+                selectedBodyArmor.textContent = event.target.textContent;
                 bodyArmorInput.value = event.target.dataset.value;
             }
         });
 
         document.addEventListener('click', function (event) {
-            if (!armorOptions.contains(event.target) && event.target !== selectedArmor) {
-                armorOptions.classList.remove('show');
+            if (!bodyArmorOptions.contains(event.target) && event.target !== selectedBodyArmor) {
+                bodyArmorOptions.classList.remove('show');
             }
         });
 
-        selectedArmor.addEventListener('click', function () {
-            armorOptions.classList.toggle('show');
+        selectedBodyArmor.addEventListener('click', function () {
+            bodyArmorOptions.classList.toggle('show');
+        });
+
+        const selectedHeadArmor = document.getElementById('selectedHeadArmor');
+        const headArmorOptions = document.getElementById('headArmorOptions');
+        const headArmorInput = document.getElementById('headArmor');
+
+        headArmorOptions.addEventListener('click', function (event) {
+            if (event.target.tagName === 'img') {
+                selectedHeadArmor.textContent = event.target.textContent;
+                headArmorInput.value = event.target.dataset.value;
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!headArmorOptions.contains(event.target) && event.target !== selectedHeadArmor) {
+                headArmorOptions.classList.remove('show');
+            }
+        });
+
+        selectedHeadArmor.addEventListener('click', function () {
+            headArmorOptions.classList.toggle('show');
         });
     });
-
-
 </script>
+
 
 </body>
 </html>
-
-

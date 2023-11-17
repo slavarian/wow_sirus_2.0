@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from wow_db.models import Body_armor
+from wow_db.models import Body_armor , Head_armor
 
 class Game_specialization(models.Model):
     title = models.CharField(
@@ -181,12 +181,20 @@ class Character(models.Model):
         null=True, blank=True,
         on_delete=models.CASCADE
     )
+    head_armor = models.ForeignKey(
+        verbose_name= 'нагудник',
+        to=Head_armor,
+        null=True, blank=True,
+        on_delete=models.CASCADE
+    )
  
    
-    def equip_body_armor(self, body_armor):
+    def equip_body_armor(self, body_armor ):
         self.body_armor = body_armor
         self.save()
-    
+    def equip_head_armor(self, head_armor):
+        self.head_armor = head_armor
+        self.save()
 
     @property
     def gear_score(self):

@@ -47,7 +47,7 @@ for i in item_ids:
         print("Тег 'icon' не найден в XML-данных.")
 
 
-    body_armor = Body_armor(
+    body_armor = Head_armor(
     title=item_name,
     item_level=item_level,
     quality=item_quality,

@@ -7,7 +7,7 @@ from .forms.reg_form import RegistrationForm
 from django.contrib.auth import login, authenticate
 from .models import MyUser
 from .models import Character
-from wow_db.models import Body_armor
+from wow_db.models import Body_armor ,Head_armor
 from django.db.models.query import QuerySet
 from django.contrib.auth.decorators import login_required
 from .forms.character_form import GameCharacterForm
@@ -22,8 +22,9 @@ def profile(request):
 
 def character_info(request, character_id):
     character = get_object_or_404(Character, id=character_id)
-    body_armors = Body_armor.objects.all()  # Adjust this query based on your needs
-    return render(request, 'character_info.html', {'character': character, 'body_armors': body_armors})
+    body_armors = Body_armor.objects.all()
+    head_armors = Head_armor.objects.all()  
+    return render(request, 'character_info.html', {'character': character, 'body_armors': body_armors ,'head_armors':head_armors })
 
 
 def equip_gear(request):
@@ -32,13 +33,29 @@ def equip_gear(request):
         gear_type = request.POST.get('gear_type')
         selected_item_id = request.POST.get('selected_item')
         character = Character.objects.get(id=character_id)
-        selected_item = Body_armor.objects.get(id=selected_item_id)
+        armor_model = get_armor_model(gear_type)
+        
+        try:
+            selected_item = armor_model.objects.get(id=selected_item_id)
+        except armor_model.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Выбранный предмет не найден'})
+        
         if gear_type == 'bodyArmor':
             character.equip_body_armor(selected_item)
+        elif gear_type == 'headArmor':
+            character.equip_head_armor(selected_item)
 
         return JsonResponse({'success': True})
 
     return JsonResponse({'success': False, 'error': 'Неверный запрос'})
+
+def get_armor_model(gear_type):
+    if gear_type == 'bodyArmor':
+        return Body_armor
+    elif gear_type == 'headArmor':
+        return Head_armor
+
+
 
 def create_character(request):
     if request.method == 'POST':
