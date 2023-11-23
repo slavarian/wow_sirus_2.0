@@ -5,11 +5,14 @@ import os
 import sys
 import django
 from bs4 import BeautifulSoup
-from parsdict import item_ids
+from parsdict import item_ids 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.base')
 django.setup()
 
-from wow_db.models import Body_armor , Head_armor
+from wow_db.models import (Body_armor , Head_armor , Boots_armor ,
+                           Gloves_armor , Legs_armor ,Back_armor,
+                            Shoulder_armor , Wrist_armor , Belt_armor,
+                            Ring , Trinket , Weapon , Amulet  )
 
 for i in item_ids:
 
@@ -47,7 +50,7 @@ for i in item_ids:
         print("Тег 'icon' не найден в XML-данных.")
 
 
-    body_armor = Head_armor(
+    body_armor = Gloves_armor(
     title=item_name,
     item_level=item_level,
     quality=item_quality,
@@ -55,14 +58,15 @@ for i in item_ids:
     item_img=item_img_url,
     armor=int(item_armor) if item_armor else None,
     strength=int(item_str) if item_str else None,
-    stamina=int(item_sta) if item_sta else None,
+    stamina=int(item_sta) if item_sta else None, 
     agility=int(item_agi) if item_agi else None,
     intelect=int(item_int) if item_int else None,
     haste_rating=float(item_hastertng) if item_hastertng else None,
     crit_rating=float(item_crit) if item_crit else None,
     versatility=float(item_versatility) if item_versatility else None,
     mastery=float(item_mastery) if item_mastery else None,
-    required_level = int(item_reqlevel) 
+    required_level = int(item_reqlevel) if item_reqlevel else None,
+  
             )
 
 

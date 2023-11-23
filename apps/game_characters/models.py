@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils import timezone
-from wow_db.models import Body_armor , Head_armor
+from wow_db.models import (Body_armor , Head_armor , Boots_armor ,
+                           Gloves_armor , Legs_armor ,Back_armor,
+                            Shoulder_armor , Wrist_armor , Belt_armor,
+                            Ring , Trinket , Weapon , Amulet  )
 
 class Game_specialization(models.Model):
     title = models.CharField(
@@ -187,6 +190,76 @@ class Character(models.Model):
         null=True, blank=True,
         on_delete=models.CASCADE
     )
+
+    boots_armor = models.ForeignKey(
+        verbose_name= 'ботинки',
+        to=Boots_armor,
+        null=True, blank=True,
+        on_delete=models.CASCADE
+    )
+    gloves_armor = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Gloves_armor,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    legs_armor = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Legs_armor,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    back_armor = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Back_armor,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    shoulder_armor = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Shoulder_armor,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    wrist_armor = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Wrist_armor,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    belt_armor = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Belt_armor,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    ring = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Ring,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    amulet = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Amulet,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    trinket = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Trinket,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    weapon = models.ForeignKey(
+            verbose_name= 'ботинки',
+            to=Weapon,
+            null=True, blank=True,
+            on_delete=models.CASCADE
+        )
+    
+
+ 
  
    
     def equip_body_armor(self, body_armor ):
@@ -195,6 +268,39 @@ class Character(models.Model):
     def equip_head_armor(self, head_armor):
         self.head_armor = head_armor
         self.save()
+    def equip_boots_armor(self, boots_armor):
+        self.boots_armor = boots_armor
+        self.save()
+    def equip_gloves_armor(self, gloves_armor):
+        self.gloves_armor = gloves_armor
+        self.save()
+    def equip_legs_armor(self, legs_armor):
+        self.legs_armor = legs_armor
+        self.save()
+    def equip_back_armor(self, back_armor):
+        self.back_armor = back_armor
+        self.save() 
+    def equip_shoulder_armor(self, shoulder_armor):
+        self.shoulder_armor = shoulder_armor
+        self.save() 
+    def equip_wrist_armor(self, wrist_armor):
+        self.wrist_armor = wrist_armor
+        self.save()
+    def equip_belt_armor(self, belt_armor):
+        self.belt_armor = belt_armor
+        self.save()
+    def equip_ring(self, ring):
+        self.ring = ring
+        self.save()
+    def equip_amulet(self, amulet):
+        self.amulet = amulet
+        self.save()
+    def equip_trinket(self, trinket):
+        self.trinket = trinket
+        self.save()    
+    def equip_weapon(self, weapon):
+        self.weapon = weapon
+        self.save()            
 
     @property
     def gear_score(self):

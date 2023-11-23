@@ -6,6 +6,8 @@
     <title>Character Info</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style/css/style.css' %}">
+  
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
@@ -79,9 +81,149 @@
                 </div>
           
                 </div>
-                <div class="e1"></div>
-                <div class="e1"></div>
-                <div class="e1"></div>
+                <div class="e1">
+                    <div class="tooltip-container" onmouseover="showTooltip('AmuletTooltip')" onmouseout="hideTooltip('AmuletTooltip')">
+                        <a href="{{ character.amulet.item_url }}">
+                            <img class="tooltip" src="{{ character.amulet.item_img }}" width="100%" height="100%">
+                        </a>
+                        <div class="tooltip-content" id="AmuletTooltip">
+                        <p class="purple">{{ character.amulet.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ character.amulet.item_level }}</p>
+                        <p>Качество: {{ character.amulet.quality }}</p>
+                        <p>Тип брони:  {{ character.amulet.armor_type }} </p>
+                        {% if character.amulet.strength %}
+                        <p>+{{ character.amulet.strength }} к силе</p>
+                        {% endif %}
+                        {% if character.amulet.intelect  %}
+                        <p>+{{ character.amulet.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if character.amulet.agility  %}
+                        <p>+{{ character.amulet.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if character.amulet.stamina %}
+                        <p>+{{ character.amulet.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if character.amulet.haste_rating  %}
+                        <p class="green">+{{ character.amulet.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if character.amulet.crit_rating  %}
+                        <p class="green">+{{ character.amulet.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if character.amulet.versatility  %}
+                        <p class="green">+{{ character.amulet.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if character.amulet.mastery  %}
+                        <p class="green">+{{ character.amulet.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if character.amulet.required_level   %}
+                        <p>Требуется {{ character.amulet.required_level  }}-й ур.</p>
+                        {% endif %}
+                        </div>     
+                </div>
+                <div class="armor-dropdown" id="AmuletDropdown">
+                    <select id="amuletList" name="amuletList" onchange="changeAmulet()">
+                        {% for armor in amulet %}
+                            <option value="{{ armor.id }}">{{ armor.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
+                <div class="e1">
+                    <div class="tooltip-container" onmouseover="showTooltip('shoulderArmorTooltip')" onmouseout="hideTooltip('shoulderArmorTooltip')">
+                        <a href="{{ character.shoulder_armor.item_url }}">
+                            <img class="tooltip" src="{{ character.shoulder_armor.item_img }}" width="100%" height="100%">
+                        </a>
+                        <div class="tooltip-content" id="shoulderArmorTooltip">
+                        <p class="purple">{{ character.shoulder_armor.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ character.shoulder_armor.item_level }}</p>
+                        <p>Качество: {{ character.shoulder_armor.quality }}</p>
+                        <p>Тип брони:  {{ character.shoulder_armor.armor_type }} </p>
+                        <p>Броня:  {{ character.shoulder_armor.armor }}</p>
+                        {% if character.shoulder_armor.strength %}
+                        <p>+{{ character.shoulder_armor.strength }} к силе</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.intelect  %}
+                        <p>+{{ character.shoulder_armor.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.agility  %}
+                        <p>+{{ character.shoulder_armor.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.stamina %}
+                        <p>+{{ character.shoulder_armor.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.haste_rating  %}
+                        <p class="green">+{{ character.shoulder_armor.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.crit_rating  %}
+                        <p class="green">+{{ character.shoulder_armor.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.versatility  %}
+                        <p class="green">+{{ character.shoulder_armor.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.mastery  %}
+                        <p class="green">+{{ character.shoulder_armor.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if character.shoulder_armor.required_level   %}
+                        <p>Требуется {{ character.shoulder_armor.required_level  }}-й ур.</p>
+                        {% endif %}
+                        </div>
+                </div>
+                <div class="armor-dropdown" id="shoulderArmorDropdown">
+                    <select id="shoulderArmorList" name="shoulderArmorList" onchange="changeShoulderArmor()">
+                        {% for armor in shoulder_armor %}
+                            <option value="{{ armor.id }}">{{ armor.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
+                <div class="e1">
+                    <div class="tooltip-container" onmouseover="showTooltip('backArmorTooltip')" onmouseout="hideTooltip('backArmorTooltip')">
+                        <a href="{{ character.back_armor.item_url }}">
+                            <img class="tooltip" src="{{ character.back_armor.item_img }}" width="100%" height="100%">
+                        </a>
+                        <div class="tooltip-content" id="backArmorTooltip">
+                        <p class="purple">{{ character.back_armor.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ character.back_armor.item_level }}</p>
+                        <p>Качество: {{ character.back_armor.quality }}</p>
+                        <p>Тип брони:  {{ character.back_armor.armor_type }} </p>
+                        <p>Броня:  {{ character.back_armor.armor }}</p>
+                        {% if character.back_armor.strength %}
+                        <p>+{{ character.back_armor.strength }} к силе</p>
+                        {% endif %}
+                        {% if character.back_armor.intelect  %}
+                        <p>+{{ character.back_armor.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if character.back_armor.agility  %}
+                        <p>+{{ character.back_armor.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if character.back_armor.stamina %}
+                        <p>+{{ character.back_armor.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if character.back_armor.haste_rating  %}
+                        <p class="green">+{{ character.back_armor.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if character.back_armor.crit_rating  %}
+                        <p class="green">+{{ character.back_armor.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if character.back_armor.versatility  %}
+                        <p class="green">+{{ character.back_armor.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if character.back_armor.mastery  %}
+                        <p class="green">+{{ character.back_armor.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if character.back_armor.required_level   %}
+                        <p>Требуется {{ character.back_armor.required_level  }}-й ур.</p>
+                        {% endif %}
+                        </div>
+                </div>
+                <div class="armor-dropdown" id="backArmorDropdown">
+                    <select id="backArmorList" name="backArmorList" onchange="changeBackArmor()">
+                        {% for armor in back_armor %}
+                            <option value="{{ armor.id }}">{{ armor.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('bodyArmorTooltip')" onmouseout="hideTooltip('bodyArmorTooltip')">
                         <a href="{{ character.body_armor.item_url }}">
@@ -132,7 +274,54 @@
                 </div>
                 <div class="e1"></div>
                 <div class="e1"></div>
-                <div class="e1"></div>
+                <div class="e1">
+                    <div class="tooltip-container" onmouseover="showTooltip('wristArmorTooltip')" onmouseout="hideTooltip('wristArmorTooltip')">
+                        <a href="{{ character.wrist_armor.item_url }}">
+                            <img class="tooltip" src="{{ character.wrist_armor.item_img }}" width="100%" height="100%">
+                        </a>
+                        <div class="tooltip-content" id="wristArmorTooltip">
+                        <p class="purple">{{ character.wrist_armor.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ character.wrist_armor.item_level }}</p>
+                        <p>Качество: {{ character.wrist_armor.quality }}</p>
+                        <p>Тип брони:  {{ character.wrist_armor.armor_type }} </p>
+                        <p>Броня:  {{ character.wrist_armor.armor }}</p>
+                        {% if character.wrist_armor.strength %}
+                        <p>+{{ character.wrist_armor.strength }} к силе</p>
+                        {% endif %}
+                        {% if character.wrist_armor.intelect  %}
+                        <p>+{{ character.wrist_armor.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if character.wrist_armor.agility  %}
+                        <p>+{{ character.wrist_armor.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if character.wrist_armor.stamina %}
+                        <p>+{{ character.wrist_armor.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if character.wrist_armor.haste_rating  %}
+                        <p class="green">+{{ character.wrist_armor.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if character.wrist_armor.crit_rating  %}
+                        <p class="green">+{{ character.wrist_armor.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if character.wrist_armor.versatility  %}
+                        <p class="green">+{{ character.wrist_armor.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if character.wrist_armor.mastery  %}
+                        <p class="green">+{{ character.wrist_armor.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if character.wrist_armor.required_level   %}
+                        <p>Требуется {{ character.wrist_armor.required_level  }}-й ур.</p>
+                        {% endif %}
+                        </div>
+                </div>
+                <div class="armor-dropdown" id="wristArmorDropdown">
+                    <select id="wristArmorList" name="wristArmorList" onchange="changeWristArmor()">
+                        {% for armor in wrist_armor %}
+                            <option value="{{ armor.id }}">{{ armor.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
             </div>
             <div class="equip2">
                 <div class="char_img">
@@ -146,7 +335,54 @@
                 </div>
             </div>
             <div class="equip3">
-                <div class="e1"></div>
+                <div class="e1">
+                    <div class="tooltip-container" onmouseover="showTooltip('glovesArmorTooltip')" onmouseout="hideTooltip('glovesArmorTooltip')">
+                        <a href="{{ character.gloves_armor.item_url }}">
+                            <img class="tooltip" src="{{ character.gloves_armor.item_img }}" width="100%" height="100%">
+                        </a>
+                        <div class="tooltip-content" id="glovesArmorTooltip">
+                        <p class="purple">{{ character.gloves_armor.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ character.gloves_armor.item_level }}</p>
+                        <p>Качество: {{ character.gloves_armor.quality }}</p>
+                        <p>Тип брони:  {{ character.gloves_armor.armor_type }} </p>
+                        <p>Броня:  {{ character.gloves_armor.armor }}</p>
+                        {% if character.gloves_armor.strength %}
+                        <p>+{{ character.gloves_armor.strength }} к силе</p>
+                        {% endif %}
+                        {% if character.gloves_armor.intelect  %}
+                        <p>+{{ character.gloves_armor.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if character.gloves_armor.agility  %}
+                        <p>+{{ character.gloves_armor.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if character.gloves_armor.stamina %}
+                        <p>+{{ character.gloves_armor.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if character.gloves_armor.haste_rating  %}
+                        <p class="green">+{{ character.gloves_armor.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if character.gloves_armor.crit_rating  %}
+                        <p class="green">+{{ character.gloves_armor.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if character.gloves_armor.versatility  %}
+                        <p class="green">+{{ character.gloves_armor.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if character.gloves_armor.mastery  %}
+                        <p class="green">+{{ character.gloves_armor.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if character.gloves_armor.required_level   %}
+                        <p>Требуется {{ character.gloves_armor.required_level  }}-й ур.</p>
+                        {% endif %}
+                        </div>
+                </div>
+                <div class="armor-dropdown" id="glovesArmorDropdown">
+                    <select id="glovesArmorList" name="glovesArmorList" onchange="changeGlovesArmor()">
+                        {% for armor in gloves_armor %}
+                            <option value="{{ armor.id }}">{{ armor.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                </div>
                 <div class="e1"></div>
                 <div class="e1"></div>
                 <div class="e1"></div>
@@ -207,24 +443,9 @@
 
     </div>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'style/js/script.js' %}"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function toggleArmorList(dropdownId) {
-        var dropdown = document.getElementById(dropdownId);
-        dropdown.classList.toggle('show');
-    }
-
-    function showTooltip(tooltipId) {
-        document.getElementById(tooltipId).style.display = 'block';
-}
-
-    function hideTooltip(tooltipId) {
-        document.getElementById(tooltipId).style.display = 'none';
-}
-
     function changeBodyArmor() {
         var selectedBodyArmorId = document.getElementById('bodyArmorList').value;
 
@@ -267,49 +488,107 @@
         });
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const selectedBodyArmor = document.getElementById('selectedBodyArmor');
-        const bodyArmorOptions = document.getElementById('bodyArmorOptions');
-        const bodyArmorInput = document.getElementById('bodyArmor');
+    function changeAmulet() {
+        var selectedAmuletId = document.getElementById('amuletList').value;
 
-        bodyArmorOptions.addEventListener('click', function (event) {
-            if (event.target.tagName === 'DIV') {
-                selectedBodyArmor.textContent = event.target.textContent;
-                bodyArmorInput.value = event.target.dataset.value;
-            }
-        });
-
-        document.addEventListener('click', function (event) {
-            if (!bodyArmorOptions.contains(event.target) && event.target !== selectedBodyArmor) {
-                bodyArmorOptions.classList.remove('show');
-            }
-        });
-
-        selectedBodyArmor.addEventListener('click', function () {
-            bodyArmorOptions.classList.toggle('show');
-        });
-
-        const selectedHeadArmor = document.getElementById('selectedHeadArmor');
-        const headArmorOptions = document.getElementById('headArmorOptions');
-        const headArmorInput = document.getElementById('headArmor');
-
-        headArmorOptions.addEventListener('click', function (event) {
-            if (event.target.tagName === 'DIV') {
-                selectedHeadArmor.textContent = event.target.textContent;
-                headArmorInput.value = event.target.dataset.value;
-            }
-        });
-
-        document.addEventListener('click', function (event) {
-            if (!headArmorOptions.contains(event.target) && event.target !== selectedHeadArmor) {
-                headArmorOptions.classList.remove('show');
-            }
-        });
-
-        selectedHeadArmor.addEventListener('click', function () {
-            headArmorOptions.classList.toggle('show');
-        });
+    $.ajax({
+        type: "POST",
+        url: "{% url 'equip_gear' %}",
+        data: {
+            'character_id': {{ character.id }},
+            'gear_type': 'amulet',
+            'selected_item': selectedAmuletId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+            location.reload();
+        },
+        error: function (xhr, errmsg, err) {
+            console.log("Error: " + xhr.status + ": " + xhr.responseText);
+        }
     });
+}
+    function changeShoulderArmor() {
+        var selectedShoulderArmorId = document.getElementById('shoulderArmorList').value;
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'equip_gear' %}",
+            data: {
+                'character_id': {{ character.id }},
+                'gear_type': 'shoulderArmor',
+                'selected_item': selectedShoulderArmorId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                location.reload();
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("Error: " + xhr.status + ": " + xhr.responseText);
+            }
+        });
+    }
+    function changeBackArmor() {
+        var selectedBackArmorId = document.getElementById('backArmorList').value;
+
+    $.ajax({
+        type: "POST",
+        url: "{% url 'equip_gear' %}",
+        data: {
+            'character_id': {{ character.id }},
+            'gear_type': 'backArmor',
+            'selected_item': selectedBackArmorId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+            location.reload();
+        },
+        error: function (xhr, errmsg, err) {
+            console.log("Error: " + xhr.status + ": " + xhr.responseText);
+        }
+    });
+}
+    function changeWristArmor() {
+        var selectedWristArmorId = document.getElementById('wristArmorList').value;
+
+        $.ajax({
+            type: "POST",
+            url: "{% url 'equip_gear' %}",
+            data: {
+                'character_id': {{ character.id }},
+                'gear_type': 'wristArmor',
+                'selected_item': selectedWristArmorId,
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function (data) {
+                location.reload();
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("Error: " + xhr.status + ": " + xhr.responseText);
+            }
+        });
+    }
+
+    function changeGlovesArmor() {
+        var selectedGlovesArmorrId = document.getElementById('glovesArmorList').value;
+
+    $.ajax({
+        type: "POST",
+        url: "{% url 'equip_gear' %}",
+        data: {
+            'character_id': {{ character.id }},
+            'gear_type': 'glovesArmor',
+            'selected_item': selectedGlovesArmorrId,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+            location.reload();
+        },
+        error: function (xhr, errmsg, err) {
+            console.log("Error: " + xhr.status + ": " + xhr.responseText);
+        }
+    });
+}
 </script>
 
 

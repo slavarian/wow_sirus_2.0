@@ -4,6 +4,8 @@ from django.urls import path
 from .views import character_info , create_character ,get_races , equip_gear
 from . import views
 from django.contrib.auth import views as auth_views 
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -16,3 +18,5 @@ urlpatterns = [
     path('get_races/', get_races, name='get_races'),
     path('equip_gear/', equip_gear, name='equip_gear'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
