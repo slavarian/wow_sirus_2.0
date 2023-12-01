@@ -207,8 +207,8 @@ class Gloves_armor(models.Model):
 
     class Meta:
         ordering = ('-id',)
-        verbose_name = 'ботинки'
-        verbose_name_plural = 'ботинки'
+        verbose_name = 'перчаптки'
+        verbose_name_plural = 'перчаптки'
 
 class Legs_armor(models.Model):
     title = models.CharField(max_length=255,
@@ -459,7 +459,7 @@ class Belt_armor(models.Model):
                               blank=True,null=True)
     item_url = models.URLField( default=None,
                              verbose_name="ссылка на предмет")
-    item_img = models.URLField( default=None,
+    item_img = models.URLField( default="https://static.wikia.nocookie.net/wowpedia/images/c/cd/Ui-paperdoll-slot-waist.png/revision/latest?cb=20070607015409",
                              verbose_name="ссылка на изорбажение предмета")
     
     def __str__(self):
@@ -602,9 +602,10 @@ class Trinket(models.Model):
     mastery = models.FloatField( default=None,
                              verbose_name="искустность",
                              blank=True,null=True)
-    enique_spell = models.CharField(
+    unique_spell = models.CharField(
         max_length=255, default=None,
-                            verbose_name="уникальная способность предмета"
+                            verbose_name="уникальная способность предмета",
+                            blank=True,null=True
     )
     required_level = models.IntegerField( default=None,
                              verbose_name="уровень для экиперовки",
@@ -632,16 +633,20 @@ class Weapon(models.Model):
                              verbose_name="качество")
     waepon_type = models.CharField(max_length=255 , default=None,
                              verbose_name="тип брони")
-    min_damage = models.IntegerField( default=None,
+    min_damage = models.IntegerField( default=1,
                              verbose_name="минимальный урон",
                              blank=True,null=True)
-    max_damage = models.IntegerField( default=None,
+    max_damage = models.IntegerField( default=1,
                              verbose_name="максимальный урон",
                              blank=True,null=True)
-    damage_per_second = models.IntegerField( default=None,
+    damage_per_second = models.DecimalField( default=None,
+                                             max_digits = 5, 
+                                        decimal_places = 1,
                              verbose_name="урон за секунду",
                              blank=True,null=True)
-    attack_speed = models.IntegerField( default=None,
+    attack_speed = models.DecimalField( default=None,
+                                       max_digits = 5, 
+                                        decimal_places = 2,
                              verbose_name="скорость 1 удара",
                              blank=True,null=True)
     strength = models.IntegerField( default=None,
@@ -656,16 +661,16 @@ class Weapon(models.Model):
     intelect = models.IntegerField( default=None,
                              verbose_name="интелект",
                              blank=True,null=True)
-    haste_rating = models.FloatField( default=None,
+    haste_rating = models.IntegerField( default=None,
                              verbose_name="скорость",
                              blank=True,null=True)
-    crit_rating = models.FloatField(default=None,
+    crit_rating = models.IntegerField(default=None,
                              verbose_name="крит",
                              blank=True,null=True)
-    versatility = models.FloatField( default=None,
+    versatility = models.IntegerField( default=None,
                              verbose_name="универсальность",
                              blank=True,null=True)
-    mastery = models.FloatField( default=None,
+    mastery = models.IntegerField( default=None,
                              verbose_name="искустность",
                              blank=True,null=True)
     required_level = models.IntegerField( default=None,

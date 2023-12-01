@@ -1,0 +1,42 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+   
+    background-repeat: no-repeat;
+   
+}
+
+
+
+.box {
+  
+    width: 200px;
+    padding: 30px;
+    z-index: 11;
+    background-color: rgba(0, 0, 0, 0.795);
+    color: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(119, 50, 50, 0.1);
+    margin-top: 10px;
+    border: 1px solid rgb(216, 212, 235);
+  
+    
+}
+
+.green {
+    color: rgb(41, 189, 41);
+}
+
+.yellow {
+    color: rgb(241, 241, 44);
+}
+
+.purple {
+    color: rgb(160, 1, 160);
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}

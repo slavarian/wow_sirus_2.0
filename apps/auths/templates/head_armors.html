@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/css/items.css' %}">
+    <title>Boots</title>
+</head>
+<body>
+    {% block content %}
+  <h2>{{ armor_type }} Armors</h2>
+  <p>
+    Фильтры |
+    <a href="?sort=name&order={{ order }}">Название предмета</a> |
+    <a href="?sort=level&order={{ order }}">Уровень предмета</a> |
+    <form method="get" action="{% url 'view_armors' character_id=character.id armor_type=armor_type %}">
+      <input type="text" name="search" placeholder="Введите название">
+      <button type="submit">Поиск</button>
+    </form>
+  </p>
+{% for armor in armors %}
+    <div class="object-wrapper">
+            <div class="box">
+                <img src="{{ armor.item_img }}" alt="">
+                <p class="purple">{{ armor.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ armor.item_level }}</p>
+                        <p>Качество: {{ armor.quality }}</p>
+                        <p>Тип брони:  {{ armor.armor_type }} </p>
+                        <p>Броня:  {{ armor.armor }}</p>
+                        {% if armor.strength %}
+                        <p>+{{ armor.strength }} к силе</p>
+                        {% endif %}
+                        {% if armor.intelect  %}
+                        <p>+{{ armor.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if armor.agility  %}
+                        <p>+{{ armor.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if armor.stamina %}
+                        <p>+{{ armor.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if armor.haste_rating  %}
+                        <p class="green">+{{ armor.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if armor.crit_rating  %}
+                        <p class="green">+{{ armor.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if armor.versatility  %}
+                        <p class="green">+{{ armor.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if armor.mastery  %}
+                        <p class="green">+{{ armor.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if armor.required_level   %}
+                        <p>Требуется {{ armor.required_level  }}-й ур.</p>
+                        {% endif %}
+                        <p><a href="{{ armor.item_url  }}">Больше информации</a> </p>
+                        <button> <a href="{% url 'equip_armor' character_id=character.id armor_id=armor.id armor_type='head_armor' %}">Экиперовать</a></button>
+            </div>   
+    </div>
+{% endfor %}
+{% endblock %}
+</body>
+</html>

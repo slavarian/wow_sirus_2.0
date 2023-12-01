@@ -34,7 +34,7 @@
             <div class="equip1">
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('headArmorTooltip')" onmouseout="hideTooltip('headArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='head'%}">
+                        <a href="{{  character.head_armor.item_url }}">
                             <img class="tooltip" src="{{ character.head_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="headArmorTooltip">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('AmuletTooltip')" onmouseout="hideTooltip('AmuletTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='amulet'%}">
+                        <a href="{{  character.amulet.item_url }}">
                             <img class="tooltip" src="{{ character.amulet.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="AmuletTooltip">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('shoulderArmorTooltip')" onmouseout="hideTooltip('shoulderArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='shoulder'%}">
+                        <a href="{{  character.shoulder_armor.item_url }}">
                             <img class="tooltip" src="{{ character.shoulder_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="shoulderArmorTooltip">
@@ -156,7 +156,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('backArmorTooltip')" onmouseout="hideTooltip('backArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='back'%}">
+                        <a href="{{  character.back_armor.item_url }}">
                             <img class="tooltip" src="{{ character.back_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="backArmorTooltip">
@@ -197,7 +197,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('bodyArmorTooltip')" onmouseout="hideTooltip('bodyArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='body'%}">
+                        <a href="{{  character.body_armor.item_url }}">
                             <img class="tooltip" src="{{ character.body_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="bodyArmorTooltip">
@@ -245,7 +245,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('wristArmorTooltip')" onmouseout="hideTooltip('wristArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='wirst'%}">
+                        <a href="{{  character.wrist_armor.item_url }}">
                             <img class="tooltip" src="{{ character.wrist_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="wristArmorTooltip">
@@ -295,7 +295,7 @@
                     <div class="waepon_center">
                         <div class="e2">
                             <div class="tooltip-container" onmouseover="showTooltip('weapon1Tooltip')" onmouseout="hideTooltip('weapon1Tooltip')">
-                            <a href="{% url 'view_armors' character_id=character.id armor_type='weapon'%}">
+                                <a href="{{  character.weapon1.item_url }}">
                                 <img class="tooltip" src="{{ character.weapon1.item_img }}"  width="100%" height="100%" style="position: absolute; z-index: 2;">
                                 <img src="https://static.wikia.nocookie.net/wowpedia/images/f/f5/Ui-paperdoll-slot-mainhand.png/revision/latest?cb=20070607015117" style="position: absolute; z-index: 1; width: auto; height: auto; max-width: 100%; max-height: 100%;">
                             </a>
@@ -346,7 +346,7 @@
             <div class="equip3">
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('glovesArmorTooltip')" onmouseout="hideTooltip('glovesArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='gloves'%}">
+                        <a href="{{  character.gloves_armor.item_url }}">
                             <img class="tooltip" src="{{ character.gloves_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="glovesArmorTooltip">
@@ -387,7 +387,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('beltArmorTooltip')" onmouseout="hideTooltip('beltArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='belt'%}">
+                        <a href="{{  character.belt_armor.item_url }}">
                             <img class="tooltip" src="{{ character.belt_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="beltArmorTooltip">
@@ -428,7 +428,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('legsArmorTooltip')" onmouseout="hideTooltip('legsArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='legs'%}">
+                        <a href="{{  character.legs_armor.item_url }}">
                             <img class="tooltip" src="{{ character.legs_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="legsArmorTooltip">
@@ -469,7 +469,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('bootsArmorTooltip')" onmouseout="hideTooltip('bootsArmorTooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='boots'%}">
+                        <a href="{{  character.boots_armor.item_url }}">
                             <img class="tooltip" src="{{ character.boots_armor.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="bootsArmorTooltip">
@@ -511,7 +511,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('ring1Tooltip')" onmouseout="hideTooltip('ring1Tooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='ring1'%}">
+                        <a href="{{  character.ring1.item_url }}">
                             <img class="tooltip" src="{{ character.ring1.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="ring1Tooltip">
@@ -552,7 +552,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('ring2Tooltip')" onmouseout="hideTooltip('ring2Tooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='ring2'%}">
+                        <a href="{{  character.ring2.item_url }}">
                             <img class="tooltip" src="{{ character.ring2.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="ring2Tooltip">
@@ -594,7 +594,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('trinket1Tooltip')" onmouseout="hideTooltip('trinket1Tooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='trinket1'%}">
+                        <a href="{{  character.trinket1.item_url }}">
                             <img class="tooltip" src="{{ character.trinket1.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="trinket1Tooltip">
@@ -639,7 +639,7 @@
                 </div>
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('trinket2Tooltip')" onmouseout="hideTooltip('trinket2Tooltip')">
-                        <a href="{% url 'view_armors' character_id=character.id armor_type='trinket2'%}">
+                        <a href="{{  character.trinket2.item_url }}">
                             <img class="tooltip" src="{{ character.trinket2.item_img }}" width="100%" height="100%">
                         </a>
                         <div class="tooltip-content" id="trinket2Tooltip">

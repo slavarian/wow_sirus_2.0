@@ -233,74 +233,113 @@ class Character(models.Model):
             null=True, blank=True,
             on_delete=models.CASCADE
         )
-    ring = models.ForeignKey(
-            verbose_name= 'ботинки',
-            to=Ring,
-            null=True, blank=True,
-            on_delete=models.CASCADE
-        )
+   
     amulet = models.ForeignKey(
             verbose_name= 'ботинки',
             to=Amulet,
             null=True, blank=True,
             on_delete=models.CASCADE
         )
-    trinket = models.ForeignKey(
-            verbose_name= 'ботинки',
-            to=Trinket,
-            null=True, blank=True,
-            on_delete=models.CASCADE
-        )
-    weapon = models.ForeignKey(
-            verbose_name= 'ботинки',
-            to=Weapon,
-            null=True, blank=True,
-            on_delete=models.CASCADE
-        )
+    ring1 = models.ForeignKey(Ring, on_delete=models.CASCADE,
+                              null=True, blank=True, related_name='кольцо_1')
+    ring2 = models.ForeignKey(Ring, on_delete=models.CASCADE,
+                              null=True, blank=True, related_name='кольцо_2')
+
+    trinket1 = models.ForeignKey(Trinket, on_delete=models.CASCADE,
+                                 null=True, blank=True, related_name='тринкет_1')
+    trinket2 = models.ForeignKey(Trinket, on_delete=models.CASCADE,
+                                 null=True, blank=True, related_name='тринкет_2')
+    weapon1 = models.ForeignKey(Weapon, on_delete=models.CASCADE,
+                                null=True, blank=True, related_name='left_hand_weapons')
+    weapon2 = models.ForeignKey(Weapon, on_delete=models.CASCADE,
+                                null=True, blank=True, related_name='right_hand_weapons')
     
 
  
  
-   
-    def equip_body_armor(self, body_armor ):
-        self.body_armor = body_armor
-        self.save()
-    def equip_head_armor(self, head_armor):
-        self.head_armor = head_armor
-        self.save()
-    def equip_boots_armor(self, boots_armor):
-        self.boots_armor = boots_armor
-        self.save()
-    def equip_gloves_armor(self, gloves_armor):
-        self.gloves_armor = gloves_armor
-        self.save()
-    def equip_legs_armor(self, legs_armor):
-        self.legs_armor = legs_armor
-        self.save()
-    def equip_back_armor(self, back_armor):
-        self.back_armor = back_armor
-        self.save() 
-    def equip_shoulder_armor(self, shoulder_armor):
-        self.shoulder_armor = shoulder_armor
-        self.save() 
-    def equip_wrist_armor(self, wrist_armor):
-        self.wrist_armor = wrist_armor
-        self.save()
-    def equip_belt_armor(self, belt_armor):
-        self.belt_armor = belt_armor
-        self.save()
-    def equip_ring(self, ring):
-        self.ring = ring
-        self.save()
-    def equip_amulet(self, amulet):
-        self.amulet = amulet
-        self.save()
-    def equip_trinket(self, trinket):
-        self.trinket = trinket
-        self.save()    
-    def equip_weapon(self, weapon):
-        self.weapon = weapon
-        self.save()            
+    def equip_armor(self, armor_type, armor):
+        if armor_type == 'body':
+            self.body_armor = armor
+        elif armor_type == 'head':
+            self.head_armor = armor
+        elif armor_type == 'boots':
+            self.boots_armor = armor
+        elif armor_type == 'gloves':
+            self.gloves_armor = armor
+        elif armor_type == 'legs':
+            self.legs_armor = armor
+        elif armor_type == 'back':
+            self.back_armor = armor
+        elif armor_type == 'shoulder':
+            self.shoulder_armor = armor
+        elif armor_type == 'wrist':
+            self.wrist_armor = armor
+        elif armor_type == 'belt':
+            self.belt_armor = armor
+        elif armor_type == 'ring1':
+            self.ring1 = armor
+        elif armor_type == 'ring2':
+            self.ring2 = armor
+        elif armor_type == 'amulet':
+            self.amulet = armor
+        elif armor_type == 'trinket1':
+            self.trinket1 = armor
+        elif armor_type == 'trinket2':
+            self.trinket2 = armor
+        elif armor_type == 'weapon1':
+            self.weapon1 = armor
+        elif armor_type == 'weapon2':
+            self.weapon2 = armor
+
+    #     self.save()
+    # def equip_body_armor(self, body_armor ):
+    #     self.body_armor = body_armor
+    #     self.save()
+    # def equip_head_armor(self, head_armor):
+    #     self.head_armor = head_armor
+    #     self.save()
+    # def equip_boots_armor(self, boots_armor):
+    #     self.boots_armor = boots_armor
+    #     self.save()
+    # def equip_gloves_armor(self, gloves_armor):
+    #     self.gloves_armor = gloves_armor
+    #     self.save()
+    # def equip_legs_armor(self, legs_armor):
+    #     self.legs_armor = legs_armor
+    #     self.save()
+    # def equip_back_armor(self, back_armor):
+    #     self.back_armor = back_armor
+    #     self.save() 
+    # def equip_shoulder_armor(self, shoulder_armor):
+    #     self.shoulder_armor = shoulder_armor
+    #     self.save() 
+    # def equip_wrist_armor(self, wrist_armor):
+    #     self.wrist_armor = wrist_armor
+    #     self.save()
+    # def equip_belt_armor(self, belt_armor):
+    #     self.belt_armor = belt_armor
+    #     self.save()
+    # def equip_ring1(self, ring1):
+    #     self.ring1 = ring1
+    #     self.save()
+    # def equip_ring2(self, ring2):
+    #     self.ring2 = ring2
+    #     self.save()
+    # def equip_amulet(self, amulet):
+    #     self.amulet = amulet
+    #     self.save()
+    # def equip_trinket1(self, trinket1):
+    #     self.trinket1 = trinket1
+    #     self.save()
+    # def equip_trinket2(self, trinket2):
+    #     self.trinket2 = trinket2
+    #     self.save()   
+    # def equip_weapon1(self, weapon1):
+    #     self.weapon1 = weapon1
+    #     self.save()            
+    # def equip_weapon2(self, weapon2):
+    #     self.weapon2 = weapon2
+    #     self.save() 
 
     @property
     def gear_score(self):
@@ -309,13 +348,52 @@ class Character(models.Model):
         if self.body_armor:
             total_item_level += self.body_armor.item_level
         
-        # if self.helmet:
-        #     total_item_level += self.helmet.item_level
+        if self.head_armor:
+            total_item_level += self.head_armor.item_level
         
-        # if self.gloves:
-        #     total_item_level += self.gloves.item_level
+        if self.gloves_armor:
+            total_item_level += self.gloves_armor.item_level
 
-        return total_item_level
+        if self.shoulder_armor:
+            total_item_level += self.shoulder_armor.item_level
+
+        if self.amulet:
+            total_item_level += self.amulet.item_level
+
+        if self.wrist_armor:
+            total_item_level += self.wrist_armor.item_level
+
+        if self.back_armor:
+            total_item_level += self.back_armor.item_level
+
+        if self.belt_armor:
+            total_item_level += self.belt_armor.item_level
+
+        if self.legs_armor:
+            total_item_level += self.legs_armor.item_level
+
+        if self.boots_armor:
+            total_item_level += self.boots_armor.item_level
+
+        if self.ring1:
+            total_item_level += self.ring1.item_level
+
+        if self.ring2:
+            total_item_level += self.ring2.item_level
+
+        if self.trinket1:
+            total_item_level += self.trinket1.item_level
+        
+        if self.trinket2:
+            total_item_level += self.trinket2.item_level
+
+        if self.weapon1:
+            total_item_level += self.weapon1.item_level
+
+        if self.weapon2:
+            total_item_level += self.weapon2.item_level
+
+        return int(total_item_level/15)
 
     @property
     def total_stats(self):
@@ -328,6 +406,8 @@ class Character(models.Model):
         total_versatility = 0
         total_mastery = 0
         total_armor_rating = 0
+        total_health = 10
+    
         
         
         if self.body_armor:
@@ -340,87 +420,167 @@ class Character(models.Model):
             total_versatility += self.body_armor.versatility or 0
             total_mastery += self.body_armor.mastery or 0
             total_armor_rating += self.body_armor.armor or 0
-  
+
+        if self.head_armor:
+            total_agility += self.head_armor.agility or 0
+            total_strength += self.head_armor.strength or 0
+            total_intellect += self.head_armor.intelect or 0
+            total_stamina += self.head_armor.stamina or 0
+            total_crit += self.head_armor.crit_rating or 0
+            total_haste_rating += self.head_armor.haste_rating or 0
+            total_versatility += self.head_armor.versatility or 0
+            total_mastery += self.head_armor.mastery or 0
+            total_armor_rating += self.head_armor.armor or 0
+
+        if self.amulet:
+            total_agility += self.amulet.agility or 0
+            total_strength += self.amulet.strength or 0
+            total_intellect += self.amulet.intelect or 0
+            total_stamina += self.amulet.stamina or 0
+            total_crit += self.amulet.crit_rating or 0
+            total_haste_rating += self.amulet.haste_rating or 0
+            total_versatility += self.amulet.versatility or 0
+            total_mastery += self.amulet.mastery or 0
+        
+        if self.shoulder_armor:
+            total_agility += self.shoulder_armor.agility or 0
+            total_strength += self.shoulder_armor.strength or 0
+            total_intellect += self.shoulder_armor.intelect or 0
+            total_stamina += self.shoulder_armor.stamina or 0
+            total_crit += self.shoulder_armor.crit_rating or 0
+            total_haste_rating += self.shoulder_armor.haste_rating or 0
+            total_versatility += self.shoulder_armor.versatility or 0
+            total_mastery += self.shoulder_armor.mastery or 0
+            total_armor_rating += self.shoulder_armor.armor or 0
+
+        if self.shoulder_armor:
+            total_agility += self.shoulder_armor.agility or 0
+            total_strength += self.shoulder_armor.strength or 0
+            total_intellect += self.shoulder_armor.intelect or 0
+            total_stamina += self.shoulder_armor.stamina or 0
+            total_crit += self.shoulder_armor.crit_rating or 0
+            total_haste_rating += self.shoulder_armor.haste_rating or 0
+            total_versatility += self.shoulder_armor.versatility or 0
+            total_mastery += self.shoulder_armor.mastery or 0
+            total_armor_rating += self.shoulder_armor.armor or 0
+
+        if self.back_armor:
+            total_agility += self.back_armor.agility or 0
+            total_strength += self.back_armor.strength or 0
+            total_intellect += self.back_armor.intelect or 0
+            total_stamina += self.back_armor.stamina or 0
+            total_crit += self.back_armor.crit_rating or 0
+            total_haste_rating += self.back_armor.haste_rating or 0
+            total_versatility += self.back_armor.versatility or 0
+            total_mastery += self.back_armor.mastery or 0
+            total_armor_rating += self.back_armor.armor or 0
+
+        if self.wrist_armor:
+            total_agility += self.wrist_armor.agility or 0
+            total_strength += self.wrist_armor.strength or 0
+            total_intellect += self.wrist_armor.intelect or 0
+            total_stamina += self.wrist_armor.stamina or 0
+            total_crit += self.wrist_armor.crit_rating or 0
+            total_haste_rating += self.wrist_armor.haste_rating or 0
+            total_versatility += self.wrist_armor.versatility or 0
+            total_mastery += self.wrist_armor.mastery or 0
+            total_armor_rating += self.wrist_armor.armor or 0
+
+        if self.gloves_armor:
+            total_agility += self.gloves_armor.agility or 0
+            total_strength += self.gloves_armor.strength or 0
+            total_intellect += self.gloves_armor.intelect or 0
+            total_stamina += self.gloves_armor.stamina or 0
+            total_crit += self.gloves_armor.crit_rating or 0
+            total_haste_rating += self.gloves_armor.haste_rating or 0
+            total_versatility += self.gloves_armor.versatility or 0
+            total_mastery += self.gloves_armor.mastery or 0
+            total_armor_rating += self.gloves_armor.armor or 0
+
+        if self.belt_armor:
+            total_agility += self.belt_armor.agility or 0
+            total_strength += self.belt_armor.strength or 0
+            total_intellect += self.belt_armor.intelect or 0
+            total_stamina += self.belt_armor.stamina or 0
+            total_crit += self.belt_armor.crit_rating or 0
+            total_haste_rating += self.belt_armor.haste_rating or 0
+            total_versatility += self.belt_armor.versatility or 0
+            total_mastery += self.belt_armor.mastery or 0
+            total_armor_rating += self.belt_armor.armor or 0
+
+        if self.legs_armor:
+            total_agility += self.legs_armor.agility or 0
+            total_strength += self.legs_armor.strength or 0
+            total_intellect += self.legs_armor.intelect or 0
+            total_stamina += self.legs_armor.stamina or 0
+            total_crit += self.legs_armor.crit_rating or 0
+            total_haste_rating += self.legs_armor.haste_rating or 0
+            total_versatility += self.legs_armor.versatility or 0
+            total_mastery += self.legs_armor.mastery or 0
+            total_armor_rating += self.legs_armor.armor or 0    
+        
+        if self.boots_armor:
+            total_agility += self.boots_armor.agility or 0
+            total_strength += self.boots_armor.strength or 0
+            total_intellect += self.boots_armor.intelect or 0
+            total_stamina += self.boots_armor.stamina or 0
+            total_crit += self.boots_armor.crit_rating or 0
+            total_haste_rating += self.boots_armor.haste_rating or 0
+            total_versatility += self.boots_armor.versatility or 0
+            total_mastery += self.boots_armor.mastery or 0
+            total_armor_rating += self.boots_armor.armor or 0    
+
+        if self.ring1:
+            total_agility += self.ring1.agility or 0
+            total_strength += self.ring1.strength or 0
+            total_intellect += self.ring1.intelect or 0
+            total_stamina += self.ring1.stamina or 0
+            total_crit += self.ring1.crit_rating or 0
+            total_haste_rating += self.ring1.haste_rating or 0
+            total_versatility += self.ring1.versatility or 0
+            total_mastery += self.ring1.mastery or 0
+            
+        if self.ring2:
+            total_agility += self.ring2.agility or 0
+            total_strength += self.ring2.strength or 0
+            total_intellect += self.ring2.intelect or 0
+            total_stamina += self.ring2.stamina or 0
+            total_crit += self.ring2.crit_rating or 0
+            total_haste_rating += self.ring2.haste_rating or 0
+            total_versatility += self.ring2.versatility or 0
+            total_mastery += self.ring2.mastery or 0
+        
+        if self.trinket1:
+            total_agility += self.trinket1.agility or 0
+            total_strength += self.trinket1.strength or 0
+            total_intellect += self.trinket1.intelect or 0
+            total_stamina += self.trinket1.stamina or 0
+            total_crit += self.trinket1.crit_rating or 0
+            total_haste_rating += self.trinket1.haste_rating or 0
+            total_versatility += self.trinket1.versatility or 0
+            total_mastery += self.trinket1.mastery or 0
+
+        if self.trinket2:
+            total_agility += self.trinket2.agility or 0
+            total_strength += self.trinket2.strength or 0
+            total_intellect += self.trinket2.intelect or 0
+            total_stamina += self.trinket2.stamina or 0
+            total_crit += self.trinket2.crit_rating or 0
+            total_haste_rating += self.trinket2.haste_rating or 0
+            total_versatility += self.trinket2.versatility or 0
+            total_mastery += self.trinket2.mastery or 0
 
         return {
             'agility': total_agility,
             'strength': total_strength,
             'intellect': total_intellect,
             'stamina': total_stamina,
-            'crit': total_crit,
+            'crit': int(total_crit),
             'haste_rating': total_haste_rating,
             'versatility': total_versatility,
             'mastery': total_mastery,
             'armor_rating': total_armor_rating,
+            'health': total_health*total_stamina
         }
-
-    # def __str__(self):
-    #     return self.nick_name
     
-    # healmet = models.ForeignKey(
-    #     verbose_name= 'шлем',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-
-    # glows = models.ForeignKey(
-    #     verbose_name= 'перчатки',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-    # legs = models.ForeignKey(
-    #     verbose_name= 'ноги',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-    # boots = models.ForeignKey(
-    #     verbose_name= 'обувь',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-    # ring1 = models.ForeignKey(
-    #     verbose_name= 'кольцо1',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-    # ring2 = models.ForeignKey(
-    #     verbose_name= 'кольцо2',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-    # trinket1 = models.ForeignKey(
-    #     verbose_name= 'тринькет1',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-    # trinket2 = models.ForeignKey(
-    #     verbose_name= 'тринькет2',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-    # amulet =  models.ForeignKey(
-    #     verbose_name= 'амулет',
-    #     to = ... ,
-    #     null=True, blank=True,
-    #     on_delete=models.CASCADE
-    # )
-
-
-    # gear_score PropertyField
-
+    

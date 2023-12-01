@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Рейтинг персонажей</h1>
+    {% regroup character_sorted by gear_score as ranked_characters %}
+    {% for group in ranked_characters%}
+    {% for char in group.list %}
+    <h3>
+        <p>
+            № {{ forloop.parentloop.counter }} 
+            <a href="{% url 'character_info' char.id %}">{{ char.nick_name }}</a>
+            {{ char.gear_score }}
+        </p>
+    </h3>
+    {% endfor %}
+    {% endfor %}
+</body>
+</html>
