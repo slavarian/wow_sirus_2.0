@@ -36,9 +36,11 @@
                     <div class="tooltip-container" onmouseover="showTooltip('headArmorTooltip')" onmouseout="hideTooltip('headArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='head'%}">
                             <img class="tooltip" src="{{ character.head_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/c3/Ui-paperdoll-slot-head.png/revision/latest?cb=20070607015044">
                         </a>
                         <div class="tooltip-content" id="headArmorTooltip">
                         <p class="purple">{{ character.head_armor.title }}</p>
+                        {% if character.head_armor %}
                         <p class="yellow">Уровень предмета: {{ character.head_armor.item_level }}</p>
                         <p>Качество: {{ character.head_armor.quality }}</p>
                         <p>Тип брони:  {{ character.head_armor.armor_type }} </p>
@@ -70,6 +72,9 @@
                         {% if character.head_armor.required_level   %}
                         <p>Требуется {{ character.head_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>        
                 </div>
@@ -77,9 +82,11 @@
                     <div class="tooltip-container" onmouseover="showTooltip('AmuletTooltip')" onmouseout="hideTooltip('AmuletTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='amulet'%}">
                             <img class="tooltip" src="{{ character.amulet.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/d/d4/Ui-paperdoll-slot-neck.png/revision/latest?cb=20070607015138">
                         </a>
                         <div class="tooltip-content" id="AmuletTooltip">
                         <p class="purple">{{ character.amulet.title }}</p>
+                        {% if character.amulet %}
                         <p class="yellow">Уровень предмета: {{ character.amulet.item_level }}</p>
                         <p>Качество: {{ character.amulet.quality }}</p>
                         <p>Тип брони:  {{ character.amulet.armor_type }} </p>
@@ -110,6 +117,9 @@
                         {% if character.amulet.required_level   %}
                         <p>Требуется {{ character.amulet.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p  class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>     
                 </div>
                 </div>
@@ -117,9 +127,11 @@
                     <div class="tooltip-container" onmouseover="showTooltip('shoulderArmorTooltip')" onmouseout="hideTooltip('shoulderArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='shoulder'%}">
                             <img class="tooltip" src="{{ character.shoulder_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/f/fa/Ui-paperdoll-slot-shoulder.png/revision/latest?cb=20070607015347">
                         </a>
                         <div class="tooltip-content" id="shoulderArmorTooltip">
                         <p class="purple">{{ character.shoulder_armor.title }}</p>
+                        {% if character.shoulder_armor %}
                         <p class="yellow">Уровень предмета: {{ character.shoulder_armor.item_level }}</p>
                         <p>Качество: {{ character.shoulder_armor.quality }}</p>
                         <p>Тип брони:  {{ character.shoulder_armor.armor_type }} </p>
@@ -151,6 +163,9 @@
                         {% if character.shoulder_armor.required_level   %}
                         <p>Требуется {{ character.shoulder_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>
                 </div>
@@ -158,9 +173,11 @@
                     <div class="tooltip-container" onmouseover="showTooltip('backArmorTooltip')" onmouseout="hideTooltip('backArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='back'%}">
                             <img class="tooltip" src="{{ character.back_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854">
                         </a>
                         <div class="tooltip-content" id="backArmorTooltip">
                         <p class="purple">{{ character.back_armor.title }}</p>
+                        {% if character.back_armor %}
                         <p class="yellow">Уровень предмета: {{ character.back_armor.item_level }}</p>
                         <p>Качество: {{ character.back_armor.quality }}</p>
                         <p>Тип брони:  {{ character.back_armor.armor_type }} </p>
@@ -192,6 +209,9 @@
                         {% if character.back_armor.required_level   %}
                         <p>Требуется {{ character.back_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>
                 </div>
@@ -199,9 +219,11 @@
                     <div class="tooltip-container" onmouseover="showTooltip('bodyArmorTooltip')" onmouseout="hideTooltip('bodyArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='body'%}">
                             <img class="tooltip" src="{{ character.body_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854">
                         </a>
                         <div class="tooltip-content" id="bodyArmorTooltip">
                         <p class="purple">{{ character.body_armor.title }}</p>
+                        {% if character.body_armor %}
                         <p class="yellow">Уровень предмета: {{ character.body_armor.item_level }}</p>
                         <p>Качество: {{ character.body_armor.quality }}</p>
                         <p>Тип брони:  {{ character.body_armor.armor_type }} </p>
@@ -233,6 +255,9 @@
                         {% if character.body_armor.required_level   %}
                         <p>Требуется {{ character.body_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>
                 </div>
@@ -247,9 +272,11 @@
                     <div class="tooltip-container" onmouseover="showTooltip('wristArmorTooltip')" onmouseout="hideTooltip('wristArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='wirst'%}">
                             <img class="tooltip" src="{{ character.wrist_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/1/1d/Ui-paperdoll-slot-wrists.png/revision/latest?cb=20070607015415">
                         </a>
                         <div class="tooltip-content" id="wristArmorTooltip">
                         <p class="purple">{{ character.wrist_armor.title }}</p>
+                        {% if character.wrist_armor %}
                         <p class="yellow">Уровень предмета: {{ character.wrist_armor.item_level }}</p>
                         <p>Качество: {{ character.wrist_armor.quality }}</p>
                         <p>Тип брони:  {{ character.wrist_armor.armor_type }} </p>
@@ -281,6 +308,9 @@
                         {% if character.wrist_armor.required_level   %}
                         <p>Требуется {{ character.wrist_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>
                 </div>
@@ -297,10 +327,11 @@
                             <div class="tooltip-container" onmouseover="showTooltip('weapon1Tooltip')" onmouseout="hideTooltip('weapon1Tooltip')">
                             <a href="{% url 'view_armors' character_id=character.id armor_type='weapon'%}">
                                 <img class="tooltip" src="{{ character.weapon1.item_img }}"  width="100%" height="100%" style="position: absolute; z-index: 2;">
-                                <img src="https://static.wikia.nocookie.net/wowpedia/images/f/f5/Ui-paperdoll-slot-mainhand.png/revision/latest?cb=20070607015117" style="position: absolute; z-index: 1; width: auto; height: auto; max-width: 100%; max-height: 100%;">
+                                <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/f/f5/Ui-paperdoll-slot-mainhand.png/revision/latest?cb=20070607015117">
                             </a>
                             <div class="tooltip-content" id="weapon1Tooltip">
                                 <p class="purple">{{ character.weapon1.title }}</p>
+                                {% if character.weapon1 %}
                                 <p class="yellow">Уровень предмета: {{ character.weapon1.item_level }}</p>
                                 <p>Качество: {{ character.weapon1.quality }}</p>
                                 <p>Тип оружия:  {{ character.weapon1.waepon_type }} </p>
@@ -334,11 +365,59 @@
                                 {% if character.weapon1.required_level   %}
                                 <p>Требуется {{ character.weapon1.required_level  }}-й ур.</p>
                                 {% endif %}
+                                {% else %}
+                                <p class="yellow">предмет не экипирован</p>
+                                {% endif %}
                                 </div>         
                         </div>
                         </div>
                         <div class="e2">
-                            <img src="https://static.wikia.nocookie.net/wowpedia/images/3/30/Ui-paperdoll-slot-secondaryhand.png/revision/latest?cb=20070607015335" alt="">
+                            <div class="tooltip-container" onmouseover="showTooltip('weapon2Tooltip')" onmouseout="hideTooltip('weapon2Tooltip')">
+                                <a href="{% url 'view_armors' character_id=character.id armor_type='weapon'%}">
+                                    <img class="tooltip" src="{{ character.weapon2.item_img }}">
+                                    <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/3/30/Ui-paperdoll-slot-secondaryhand.png/revision/latest?cb=20070607015335">
+                                </a>
+                                <div class="tooltip-content" id="weapon2Tooltip">
+                                    <p class="purple">{{ character.weapon2.title }}</p>
+                                    {% if character.weapon2 %}
+                                    <p class="yellow">Уровень предмета: {{ character.weapon2.item_level }}</p>
+                                    <p>Качество: {{ character.weapon2.quality }}</p>
+                                    <p>Тип оружия:  {{ character.weapon2.waepon_type }} </p>
+                                    <p>Урон: {{ character.weapon2.min_damage }} - {{ character.weapon2.max_damage }}</p>
+                                    <p>({{ character.weapon2.damage_per_second }} ед.урона в секнуду)</p>
+                                    <p>Скорость: {{ character.weapon2.attack_speed }}</p>
+                                    {% if character.weapon2.strength %}
+                                    <p>+{{ character.weapon2.strength }} к силе</p>
+                                    {% endif %}
+                                    {% if character.weapon2.intelect  %}
+                                    <p>+{{ character.weapon2.intelect  }} к интелекту</p>
+                                    {% endif %}
+                                    {% if character.weapon2.agility  %}
+                                    <p>+{{ character.weapon2.agility  }} к ловкости</p>
+                                    {% endif %}
+                                    {% if character.weapon2.stamina %}
+                                    <p>+{{ character.weapon2.stamina }} к выносливости</p>
+                                    {% endif %}
+                                    {% if character.weapon2.haste_rating  %}
+                                    <p class="green">+{{ character.weapon2.haste_rating }} к скорости</p>
+                                    {% endif %}
+                                    {% if character.weapon2.crit_rating  %}
+                                    <p class="green">+{{ character.weapon2.crit_rating }} к критическому удару</p>
+                                    {% endif %}
+                                    {% if character.weapon2.versatility  %}
+                                    <p class="green">+{{ character.weapon2.versatility }} к универсальности</p>
+                                    {% endif %}
+                                    {% if character.weapon2.mastery  %}
+                                    <p class="green">+{{ character.weapon2.mastery }} к искустности</p>
+                                    {% endif %}
+                                    {% if character.weapon2.required_level   %}
+                                    <p>Требуется {{ character.weapon2.required_level  }}-й ур.</p>
+                                    {% endif %}
+                                    {% else %}
+                                    <p class="yellow">предмет не экипирован</p>
+                                    {% endif %}
+                                    </div>         
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -348,9 +427,11 @@
                     <div class="tooltip-container" onmouseover="showTooltip('glovesArmorTooltip')" onmouseout="hideTooltip('glovesArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='gloves'%}">
                             <img class="tooltip" src="{{ character.gloves_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/2/22/Ui-paperdoll-slot-hands.png/revision/latest?cb=20070607015036">
                         </a>
                         <div class="tooltip-content" id="glovesArmorTooltip">
-                        <p class="purple">{{ character.gloves_armor.title }}</p>
+                            {% if character.gloves_armor %}
+                            <p class="purple">{{ character.gloves_armor.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.gloves_armor.item_level }}</p>
                         <p>Качество: {{ character.gloves_armor.quality }}</p>
                         <p>Тип брони:  {{ character.gloves_armor.armor_type }} </p>
@@ -382,6 +463,9 @@
                         {% if character.gloves_armor.required_level   %}
                         <p>Требуется {{ character.gloves_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>
                 </div>
@@ -389,8 +473,10 @@
                     <div class="tooltip-container" onmouseover="showTooltip('beltArmorTooltip')" onmouseout="hideTooltip('beltArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='belt'%}">
                             <img class="tooltip" src="{{ character.belt_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/cd/Ui-paperdoll-slot-waist.png/revision/latest?cb=20070607015409">
                         </a>
                         <div class="tooltip-content" id="beltArmorTooltip">
+                            {% if character.belt_armor %}
                         <p class="purple">{{ character.belt_armor.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.belt_armor.item_level }}</p>
                         <p>Качество: {{ character.belt_armor.quality }}</p>
@@ -423,6 +509,9 @@
                         {% if character.belt_armor.required_level   %}
                         <p>Требуется {{ character.belt_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>
                 </div>
@@ -430,8 +519,10 @@
                     <div class="tooltip-container" onmouseover="showTooltip('legsArmorTooltip')" onmouseout="hideTooltip('legsArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='legs'%}">
                             <img class="tooltip" src="{{ character.legs_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/1/14/Ui-paperdoll-slot-legs.png/revision/latest?cb=20070607015103">
                         </a>
                         <div class="tooltip-content" id="legsArmorTooltip">
+                            {% if character.legs_armor %}
                         <p class="purple">{{ character.legs_armor.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.legs_armor.item_level }}</p>
                         <p>Качество: {{ character.legs_armor.quality }}</p>
@@ -464,6 +555,9 @@
                         {% if character.legs_armor.required_level   %}
                         <p>Требуется {{ character.legs_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                         </div>
                 </div>
                 </div>
@@ -471,8 +565,10 @@
                     <div class="tooltip-container" onmouseover="showTooltip('bootsArmorTooltip')" onmouseout="hideTooltip('bootsArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='boots'%}">
                             <img class="tooltip" src="{{ character.boots_armor.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/a/a5/Ui-paperdoll-slot-feet.png/revision/latest?cb=20070607015023">
                         </a>
                         <div class="tooltip-content" id="bootsArmorTooltip">
+                            {% if character.boots_armor %}
                         <p class="purple">{{ character.boots_armor.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.boots_armor.item_level }}</p>
                         <p>Качество: {{ character.boots_armor.quality }}</p>
@@ -505,6 +601,9 @@
                         {% if character.boots_armor.required_level   %}
                         <p>Требуется {{ character.boots_armor.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                        
                 </div>
                 </div>
@@ -513,8 +612,10 @@
                     <div class="tooltip-container" onmouseover="showTooltip('ring1Tooltip')" onmouseout="hideTooltip('ring1Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='ring1'%}">
                             <img class="tooltip" src="{{ character.ring1.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/c2/Ui-paperdoll-slot-finger.png/revision/latest?cb=20070607015031">
                         </a>
                         <div class="tooltip-content" id="ring1Tooltip">
+                            {% if character.ring1 %}
                         <p class="purple">{{ character.ring1.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.ring1.item_level }}</p>
                         <p>Качество: {{ character.ring1.quality }}</p>
@@ -546,6 +647,9 @@
                         {% if character.ring1.required_level   %}
                         <p>Требуется {{ character.ring1.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                        
                 </div>
                 </div>
@@ -554,8 +658,10 @@
                     <div class="tooltip-container" onmouseover="showTooltip('ring2Tooltip')" onmouseout="hideTooltip('ring2Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='ring2'%}">
                             <img class="tooltip" src="{{ character.ring2.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/c2/Ui-paperdoll-slot-finger.png/revision/latest?cb=20070607015031">
                         </a>
                         <div class="tooltip-content" id="ring2Tooltip">
+                            {% if character.ring2 %}
                         <p class="purple">{{ character.ring2.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.ring2.item_level }}</p>
                         <p>Качество: {{ character.ring2.quality }}</p>
@@ -588,6 +694,9 @@
                         {% if character.ring2.required_level   %}
                         <p>Требуется {{ character.ring2.required_level  }}-й ур.</p>
                         {% endif %}
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                        
                 </div>
                 </div>
@@ -596,8 +705,10 @@
                     <div class="tooltip-container" onmouseover="showTooltip('trinket1Tooltip')" onmouseout="hideTooltip('trinket1Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='trinket1'%}">
                             <img class="tooltip" src="{{ character.trinket1.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/2/26/Ui-paperdoll-slot-trinket.png/revision/latest?cb=20070607015403">
                         </a>
                         <div class="tooltip-content" id="trinket1Tooltip">
+                            {% if character.trinket1 %}
                         <p class="purple">{{ character.trinket1.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.trinket1.item_level }}</p>
                         <p>Качество: {{ character.trinket1.quality }}</p>
@@ -633,7 +744,9 @@
                         {% if character.trinket1.required_level   %}
                         <p>Требуется {{ character.trinket1.required_level  }}-й ур.</p>
                         {% endif %}
-                       
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}   
                     </div>
                 </div>      
                 </div>
@@ -641,13 +754,14 @@
                     <div class="tooltip-container" onmouseover="showTooltip('trinket2Tooltip')" onmouseout="hideTooltip('trinket2Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='trinket2'%}">
                             <img class="tooltip" src="{{ character.trinket2.item_img }}" width="100%" height="100%">
+                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/2/26/Ui-paperdoll-slot-trinket.png/revision/latest?cb=20070607015403">
                         </a>
                         <div class="tooltip-content" id="trinket2Tooltip">
+                        {% if character.trinket2 %}
                         <p class="purple">{{ character.trinket2.title }}</p>
                         <p class="yellow">Уровень предмета: {{ character.trinket2.item_level }}</p>
                         <p>Качество: {{ character.trinket2.quality }}</p>
-                        <p>Тип брони:  {{ character.trinket2.armor_type }} </p>
-                       
+                        <p>Тип брони:  {{ character.trinket2.armor_type }} </p>  
                         {% if character.trinket2.strength %}
                         <p>+{{ character.trinket2.strength }} к силе</p>
                         {% endif %}
@@ -678,7 +792,9 @@
                         {% if character.trinket2.required_level   %}
                         <p>Требуется {{ character.trinket2.required_level  }}-й ур.</p>
                         {% endif %}
-                        
+                        {% else %}
+                        <p class="yellow">предмет не экипирован</p>
+                        {% endif %}
                     </div>
                 </div> 
                 </div>

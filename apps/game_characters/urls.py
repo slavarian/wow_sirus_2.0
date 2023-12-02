@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from .views import character_views
 
 urlpatterns = [
-    path('info/<int:character_id>/', character_views, name='info'),
+    path('info/<int:character_id>/', character_views, name='character_views'),
     path('raiting/', character_raiting, name='raiting'),
    
 

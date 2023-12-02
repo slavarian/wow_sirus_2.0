@@ -13,7 +13,7 @@
     <h3>
         <p>
             № {{ forloop.parentloop.counter }} 
-            <a href="{% url 'character_info' char.id %}">{{ char.nick_name }}</a>
+            <a href="{% url 'character_views' char.id %}">{{ char.nick_name }}</a>
             {{ char.gear_score }}
         </p>
     </h3>
