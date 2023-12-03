@@ -17,6 +17,23 @@ class Game_specialization(models.Model):
     def __str__(self):
         return self.title
 
+class Armor_type(models.Model):
+    title = models.CharField(
+            verbose_name="тип брони",
+            max_length=50
+        )
+    def __str__(self):
+        return self.title
+
+class Weapon_type(models.Model):
+    title = models.CharField(
+            verbose_name="тип оружия",
+            max_length=50
+        )
+    def __str__(self):
+        return self.title
+
+
 class Game_class(models.Model):
     title = models.CharField(
         verbose_name= "название класса",
@@ -27,13 +44,21 @@ class Game_class(models.Model):
         to=Game_specialization,
         on_delete=models.CASCADE
     )
-
+    class_armor_type = models.ForeignKey(
+        verbose_name='тип используемой экиперовки',
+        to=Armor_type,
+        on_delete=models.CASCADE
+    )
+    class_weapon_type = models.ManyToManyField(
+        verbose_name='тип используемого оружия',
+        to=Weapon_type
+    )
     class_logo = models.ImageField(
         verbose_name='лого класса',
         upload_to='images/'
     )
     def __str__(self):
-        return self.title
+        return f"{self.title}({self.specialization.title})"
 
 
 

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/css/main.css' %}">
+    <link rel="stylesheet" href="https://fonts.google.com/specimen/Lexend">
+    <title>World of Warcraft</title>
+</head>
+<body>
+    <div class="main">
+        <div class="head">
+            <div id="logo">
+                <img id="server_logo" src="https://sirus.one/_nuxt/logo.65100e59.png" alt="">
+            </div>
+            <a href=""><div id="faq"><h2>О НАС</h2></div></a>
+            <a href="http://127.0.0.1:8000/"><div id="db"><h2>База данных</h2></div></a>
+            <a href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
+            <a href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
+            {% if user.is_authenticated %}
+            <a href="http://127.0.0.1:8000/wow/profile/"><div id="reg"><h2>Мой профиль</h2></div></a>
+            <a href="{% url 'logout' %}"><div id="auth"><h2>Выйти</h2></div></a>
+            {% else %}
+            <a href="http://127.0.0.1:8000/wow/login/"><div id="auth"><h2>Войти</h2></div></a>
+            <a href="http://127.0.0.1:8000/wow/register/"><div id="reg"><h2>Регистрация</h2></div></a>
+            {% endif %}
+            <div id="online"><h2>Онлайн: 0 </h2></div>
+        </div>
+        <div class="gate">
+            <video autoplay muted loop id="backgroundVideo">
+                <source src="{% static 'video/wow.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            <div id="info_box">
+                <h1>ДОБРО ПОЖАЛОВАТЬ В ЛУЧШИЙ WOW!</h1>
+                <h3>Мы, игроки и фанаты WoW, создали уникальный мир, <br>
+                    в котором каждый найдет для себя что-то особенное!</h3>
+                <button><h3>Играть бесплатно</h3></button>
+            </div>
+        </div>
+        <div class="fraction_box">
+            <div id="horde">
+                <div id="horde_box">
+                    <img id="frac_logo" src="https://sirus.one/_nuxt/orda.bf1323d4.webp" alt="">
+                <h2>Орда</h2>
+                <h3>Коалиция разрозненных рас и культур,
+                    объединившихся чтобы противостоять 
+                    жестокому миру, стремящемуся сломить их -
+                    Орда стала фракцией, объединенной товарищеской
+                    связью, традициями, а также желанием
+                    изгнанников выжить. Сосредоточенная, 
+                    свирепая, а иногда и чудовищная, Орда ценит
+                    силу и честь и неуклонно выступает против 
+                    тех, кто угрожает идеалам свободы и надежды. 
+                    Столь причудливое сочетание, казалось бы, несовместимых
+                    рас - но связь этой молодой фракции крепка, а 
+                    ценности неизменны.</h3>
+                    <button><h3>Вступить!</h3></button>
+                </div>
+            </div>
+            <div id="allience">    
+            <div id="allience_box">
+                <img id="frac_logo" src="https://sirus.one/_nuxt/alliance.0673d379.webp" alt="">
+                <h2>Альянс</h2>
+                <h3>Старая фракция, переродившаяся после падения Лордерона,
+                    нынешний Альянс сочетает в себе как привычных союзников, 
+                    объединенных многовековой историей, так и новых представителей,
+                    примкнувшим к ним по той или иной причине - будь то близость 
+                    ценностей, долг или необходимость. Связанные своим стремлением
+                    к справедливости и порядку, отринувшие межрасовую рознь, Альянс
+                    восстанавливает свое утерянное величие, стремясь вернуть то золотое
+                    время, когда он процветал. Благородство и отвага - вот что ценит Альянс
+                    в своих соратниках.</h3>
+                <button><h3>Вступить!</h3></button>
+            </div>      
+        </div>
+        </div>  
+        <div class="footer"></div>
+    </div>
+</body>
+</html>

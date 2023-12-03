@@ -46,7 +46,8 @@ PROJECT_APPS = [
     'abstracts.apps.AbstractsConfig',
     'client_files.apps.ClientFilesConfig',
     'game_characters.apps.GameCharactersConfig',
-    'wow_db.apps.WowDbConfig'
+    'wow_db.apps.WowDbConfig',
+    'main.apps.MainConfig'
 
 ]
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
@@ -144,4 +145,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'auths/static'),
+    os.path.join(BASE_DIR, 'main/static'),
 ]

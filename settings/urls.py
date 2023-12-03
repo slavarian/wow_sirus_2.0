@@ -8,7 +8,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('client/', include('client_files.urls')),
     path('wow/',include('auths.urls')),
-    path('character/',include('game_characters.urls'))
+    path('character/',include('game_characters.urls')),
+    path('',include('main.urls'))
 ]
 
 
