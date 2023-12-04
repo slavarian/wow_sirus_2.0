@@ -146,4 +146,5 @@ STATIC_ROOT = BASE_DIR / 'static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'auths/static'),
     os.path.join(BASE_DIR, 'main/static'),
+     os.path.join(BASE_DIR, 'wow_db/static'),
 ]

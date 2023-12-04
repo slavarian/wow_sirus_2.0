@@ -1,6 +1,5 @@
-from .views import main
+from .views import main , custom_logout
 from django.urls import path 
-from .views import custom_logout
 
 urlpatterns = [
     path('', main, name='main_page'),

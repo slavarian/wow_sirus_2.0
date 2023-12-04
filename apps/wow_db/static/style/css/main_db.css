@@ -1,0 +1,251 @@
+body {
+
+    margin: 0;
+    font-family: 'Lexend', sans-serif;
+    background-color: #181818;
+    color: #bbb;
+}
+
+.main{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.head {
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.438);
+    background-color: rgba(0, 0, 0, 0.493);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    color: aliceblue;
+    justify-content: space-around;
+    
+}
+
+#logo {
+    width: 16em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#faq {
+    width: 9em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin-left: 4%;
+}
+#db {
+    width: 13em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+#pve_rate {
+    width: 13em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+#download {
+    width: 9em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+#reg {
+    width: 13em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    
+}
+#auth {
+    width: 8em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+#online {
+    width: 11em;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+#server_logo {
+    width: 70%;
+    height: 80%;
+    margin-left: 15%;
+}
+
+
+.a1 {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    display: inline-block;
+  }
+
+div {
+    position: relative;
+    overflow: hidden;
+}
+
+h2 {
+    margin: 0;
+    padding: 20px;
+  
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+
+.a1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: yellow; 
+    transition: width 0.3s ease;
+  }
+
+.a1:hover::after {
+    width: 100%;
+  }
+
+.armor_list {
+    background-color: #202020;
+    margin: 20px;
+    padding-top: 60px;
+    
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+
+th, td {
+    border: 0.5px solid #181818;
+    padding: 8px;
+    text-align: left;
+
+
+}
+
+th {
+    background-color:#303030;
+}
+
+#td_1 {
+    display: flex;
+}
+
+#td_1 h4 {
+    margin-left: 15px;
+}
+
+#item_img {
+    width: 50px;
+    height: 50px;
+    border: 1px solid gray;
+    border-radius: 5px;
+
+}
+
+button {
+    background-color: #19a725 !important;
+
+
+    user-select: none;
+    background: #777;
+    border: 0;
+    border-radius: 2px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Open Sans",Arial,"Helvetica Neue",Helvetica,sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .015em;
+    line-height: 1.4;
+    margin-bottom: 0;
+    padding: 6px 12px;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+option {
+    display: block;
+    white-space-collapse: collapse;
+    text-wrap: nowrap;
+    min-height: 1.2em;
+    padding: 0px 2px 1px;
+}
+
+select {
+    background: #282828;
+    border: 2px solid #282828;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #bbb;
+    font-size: 14px;
+    max-width: 100%;
+    padding: 6px 12px;
+}
+
+.epic {
+    color:#a335ee;
+}
+
+.rare {
+    color: rgb(0, 0, 230);
+}
+
+.pagination {
+    font-size: 22px;
+    color: yellow;
+}
+
+th {
+    transition: background-color 0.3s ease; 
+  }
+  
+  th:hover {
+    background-color: #838383;
+  }
+
+#item_url {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    display: inline-block;
+}

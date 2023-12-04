@@ -14,8 +14,8 @@
             <div id="logo">
                 <img id="server_logo" src="https://sirus.one/_nuxt/logo.65100e59.png" alt="">
             </div>
-            <a href=""><div id="faq"><h2>О НАС</h2></div></a>
-            <a href="http://127.0.0.1:8000/"><div id="db"><h2>База данных</h2></div></a>
+            <a href="http://127.0.0.1:8000/"><div id="faq"><h2>О НАС</h2></div></a>
+            <a href="http://127.0.0.1:8000/database/"><div id="db"><h2>База знаний</h2></div></a>
             <a href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
             <a href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
             {% if user.is_authenticated %}
@@ -30,7 +30,6 @@
         <div class="gate">
             <video autoplay muted loop id="backgroundVideo">
                 <source src="{% static 'video/wow.mp4' %}" type="video/mp4">
-                Your browser does not support the video tag.
               </video>
             <div id="info_box">
                 <h1>ДОБРО ПОЖАЛОВАТЬ В ЛУЧШИЙ WOW!</h1>

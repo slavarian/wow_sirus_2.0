@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/css/main_db.css' %}">
+    <link rel="stylesheet" href="https://fonts.google.com/specimen/Lexend">
+    <title>Database</title>
+</head>
+<body>
+    <div class="main">
+        <div class="head">
+            <div id="logo">
+                <img id="server_logo" src="https://sirus.one/_nuxt/logo.65100e59.png" alt="">
+            </div>
+            <a class="a1" href="http://127.0.0.1:8000/"><div id="faq"><h2>О НАС</h2></div></a>
+            <a class="a1" href="http://127.0.0.1:8000/database/"><div id="db"><h2>База знаний</h2></div></a>
+            <a class="a1" href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
+            <a class="a1" href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
+            {% if user.is_authenticated %}
+            <a class="a1" href="http://127.0.0.1:8000/wow/profile/"><div id="reg"><h2>Мой профиль</h2></div></a>
+            <a class="a1" href="{% url 'logout' %}"><div id="auth"><h2>Выйти</h2></div></a>
+            {% else %}
+            <a class="a1" href="http://127.0.0.1:8000/wow/login/"><div id="auth"><h2>Войти</h2></div></a>
+            <a class="a1" href="http://127.0.0.1:8000/wow/register/"><div id="reg"><h2>Регистрация</h2></div></a>
+            {% endif %}
+            <div id="online"><h2>Онлайн: 0 </h2></div>
+        </div>
+        <div class="armor_list">
+            <h1>Список Брони</h1>
+    <form method="get" action="{% url 'db_main_page' %}">
+        <label for="armor_type">Тип брони:</label>
+        <select name="armor_type" id="armor_type">
+            <option value="">Всё</option>
+            <option value="Plate Armor">Латы</option>
+            <option value="Mail Armor">Кольчуга</option>
+            <option value="Leather Armor">Кожа</option>
+            <option value="Сloth Armor">Ткань</option>
+            <option value="Cosmetic">Косметика</option>
+        </select>
+        <label for="armor_slot">Слот:</label>
+        <select name="armor_slot" id="armor_slot">
+         
+            <option value="Грудь">Грудь</option>
+            <option value="Голова">Голова</option>
+            <option value="Ступни">Ступни</option>
+            <option value="Кисти рук">Кисти рук</option>
+            <option value="Плечи">Плечи</option>
+            <option value="Пояс">Пояс</option>
+            <option value="Ноги">Ноги</option>
+            <option value="Запястья">Запястья</option>
+        </select>
+        <button type="submit">Apply Filters</button>
+    </form>
+    <table  id="armor-table">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Name</th>
+                <th onclick="sortTable(1)">ILvl</th>
+                <th onclick="sortTable(2)">Req.</th>
+                <th onclick="sortTable(3)">Armor</th>
+                <th onclick="sortTable(4)">Slot</th>
+                <th onclick="sortTable(5)">Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for armor in armors %}
+                <tr>
+                    <td id="td_1" class="
+                    {% if armor.quality == 'Epic' %}epic
+                    {% elif armor.quality == 'Rare' %}rare
+                    {% endif %}">
+                    <a id="item_url" href="{{ armor.item_url }}"><img id="item_img" src="{{ armor.item_img }}" alt=""></a><h4><a id="item_url" href="{{ armor.item_url }}">{{ armor.title }}</a></h4></td>
+                    <td>{{ armor.item_level }}</td>
+                    <td>{{ armor.required_level }}</td>
+                    <td>{{ armor.armor }}</td>
+                    <td>{{ armor.armor_type }}</td>
+                    <td>{{ armor.quality }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if armors.has_previous %}
+                    <a href="?page=1{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}"><< Первая</a>
+                    <a href="?page={{ armors.previous_page_number }}{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}">< Назад</a>
+                {% endif %}
+        
+                <span class="current">
+                    Страница {{ armors.number }} из {{ armors.paginator.num_pages }}.
+                </span>
+        
+                {% if armors.has_next %}
+                    <a href="?page={{ armors.next_page_number }}{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}">Cледующая ></a>
+                    <a href="?page={{ armors.paginator.num_pages }}{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}">Последняя >></a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+<script>
+  function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("armor-table");
+  switching = true;
+  // Set the sorting direction to ascending initially
+  dir = "asc";
+  
+  while (switching) {
+    switching = false;
+    rows = table.rows;
+
+    for (i = 1; i < rows.length - 1; i++) {
+      shouldSwitch = false;
+
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+
+      var xValue, yValue;
+
+      // Check if the column contains numeric values
+      if (!isNaN(x.innerHTML) && !isNaN(y.innerHTML)) {
+        xValue = parseFloat(x.innerHTML);
+        yValue = parseFloat(y.innerHTML);
+      } else {
+        // If not numeric, compare as strings
+        xValue = x.innerHTML.toLowerCase();
+        yValue = y.innerHTML.toLowerCase();
+      }
+
+      if (dir == "asc") {
+        if (xValue > yValue) {
+          shouldSwitch = true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (xValue < yValue) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      switchcount++;
+    } else {
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+  </script>
+</html>
