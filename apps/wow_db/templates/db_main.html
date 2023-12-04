@@ -6,6 +6,7 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'style/css/main_db.css' %}">
     <link rel="stylesheet" href="https://fonts.google.com/specimen/Lexend">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Database</title>
 </head>
 <body>
@@ -67,16 +68,62 @@
         <tbody>
             {% for armor in armors %}
                 <tr>
-                    <td id="td_1" class="
-                    {% if armor.quality == 'Epic' %}epic
-                    {% elif armor.quality == 'Rare' %}rare
-                    {% endif %}">
-                    <a id="item_url" href="{{ armor.item_url }}"><img id="item_img" src="{{ armor.item_img }}" alt=""></a><h4><a id="item_url" href="{{ armor.item_url }}">{{ armor.title }}</a></h4></td>
+                    <td class="armor-tooltip" data-armor-type="{{ armor.armor_type }}">
+                        <a href="{{ armor.item_url }}" class="tooltip-trigger"><img id="item_img" src="{{ armor.item_img }}" alt=""></a>
+                        <h4 class="tooltip-trigger"><a class="
+                            {% if armor.quality == 'Epic' %}epic
+                            {% elif armor.quality == 'Rare' %}rare
+                            {% endif %}" href="{{ armor.item_url }}">{{ armor.title }}</a></h4>
+                        <div class="tooltip-content">
+                        <p class="
+                        {% if armor.quality == 'Epic' %}epic
+                        {% elif armor.quality == 'Rare' %}rare
+                        {% endif %}">{{ armor.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ armor.item_level }}</p>
+                        <p class="
+                        {% if armor.quality == 'Epic' %}epic
+                        {% elif armor.quality == 'Rare' %}rare
+                        {% endif %}">Качество: {{ armor.quality }}</p>
+                        <p>Тип брони:  {{ armor.armor_type }} </p>
+                        <p>Броня:  {{ armor.armor }}</p>
+                        {% if armor.strength %}
+                        <p>+{{ armor.strength }} к силе</p>
+                        {% endif %}
+                        {% if armor.intelect  %}
+                        <p>+{{ armor.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if armor.agility  %}
+                        <p>+{{ armor.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if armor.stamina %}
+                        <p>+{{ armor.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if armor.haste_rating  %}
+                        <p class="green">+{{ armor.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if armor.crit_rating  %}
+                        <p class="green">+{{ armor.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if armor.versatility  %}
+                        <p class="green">+{{ armor.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if armor.mastery  %}
+                        <p class="green">+{{ armor.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if armor.required_level   %}
+                        <p>Требуется {{ armor.required_level  }}-й ур.</p>
+                        {% endif %}
+                        </div>
+                        </div>
+                </td>
                     <td>{{ armor.item_level }}</td>
                     <td>{{ armor.required_level }}</td>
                     <td>{{ armor.armor }}</td>
                     <td>{{ armor.armor_type }}</td>
-                    <td>{{ armor.quality }}</td>
+                    <td class="
+                    {% if armor.quality == 'Epic' %}epic
+                    {% elif armor.quality == 'Rare' %}rare
+                    {% endif %}">{{ armor.quality }}</td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -101,60 +148,5 @@
         </div>
     </div>
 </body>
-<script>
-  function sortTable(n) {
-  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-  table = document.getElementById("armor-table");
-  switching = true;
-  // Set the sorting direction to ascending initially
-  dir = "asc";
-  
-  while (switching) {
-    switching = false;
-    rows = table.rows;
-
-    for (i = 1; i < rows.length - 1; i++) {
-      shouldSwitch = false;
-
-      x = rows[i].getElementsByTagName("TD")[n];
-      y = rows[i + 1].getElementsByTagName("TD")[n];
-
-      var xValue, yValue;
-
-      // Check if the column contains numeric values
-      if (!isNaN(x.innerHTML) && !isNaN(y.innerHTML)) {
-        xValue = parseFloat(x.innerHTML);
-        yValue = parseFloat(y.innerHTML);
-      } else {
-        // If not numeric, compare as strings
-        xValue = x.innerHTML.toLowerCase();
-        yValue = y.innerHTML.toLowerCase();
-      }
-
-      if (dir == "asc") {
-        if (xValue > yValue) {
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (xValue < yValue) {
-          shouldSwitch = true;
-          break;
-        }
-      }
-    }
-
-    if (shouldSwitch) {
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      switching = true;
-      switchcount++;
-    } else {
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
-  }
-}
-  </script>
+<script src="{% static 'style/js/script1.js' %}"></script>
 </html>

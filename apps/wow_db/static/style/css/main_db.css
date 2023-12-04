@@ -103,6 +103,12 @@ body {
     margin-left: 15%;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    display: inline-block;
+}
 
 .a1 {
     text-decoration: none;
@@ -164,9 +170,8 @@ th {
     background-color:#303030;
 }
 
-#td_1 {
-    display: flex;
-}
+
+
 
 #td_1 h4 {
     margin-left: 15px;
@@ -249,3 +254,36 @@ th {
     position: relative;
     display: inline-block;
 }
+.tooltip-content {
+    display: none;
+    z-index: 11;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.795);
+    color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(119, 50, 50, 0.1);
+    overflow-wrap: break-word;
+}
+
+.armor-tooltip {
+    display: flex;
+    position: relative;
+}
+
+.armor-tooltip:hover .tooltip-content {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.tooltip-trigger {
+    margin-left: 15px;
+}
+
+.green {
+    color: rgb(41, 189, 41);
+}
+
+.yellow {
+    color: rgb(241, 241, 44);
+}
+
