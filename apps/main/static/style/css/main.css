@@ -1,7 +1,7 @@
 body {
-
-    margin: 0;
     font-family: 'Lexend', sans-serif;
+    margin: 0;
+
 }
 
 .main{
@@ -204,12 +204,12 @@ a {
     display: inline-block;
   }
 
-  div {
+div {
     position: relative;
-    overflow: hidden;
+   
   }
 
-  h2 {
+h2 {
     margin: 0;
     padding: 20px;
   
@@ -218,7 +218,7 @@ a {
   }
 
 
-  a::after {
+a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -230,6 +230,40 @@ a {
   }
 
 
-  a:hover::after {
+a:hover::after {
     width: 100%;
+  }
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.438);
+    background-color: rgba(0, 0, 0, 0.493);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    z-index: 7; 
+    width: 200px;
+    top: 100px;
+  }
+  
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+.dropdown-content a {
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    color: #eeeeee;
+    transition: background-color 0.3s ease;
+}
+  
+.dropdown-content a:hover {
+    background-color: #424242;
   }

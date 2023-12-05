@@ -1,7 +1,6 @@
 from django.shortcuts import render , redirect
 from django.shortcuts import render, get_object_or_404
 from .forms.login_form import LoginForm
-from django.http.request import HttpRequest
 from django.http.response import HttpResponse , HttpResponseRedirect , HttpResponseForbidden
 from .forms.reg_form import RegistrationForm
 from django.contrib.auth import login, authenticate
@@ -10,13 +9,11 @@ from wow_db.models import (Body_armor , Head_armor , Boots_armor ,
                            Gloves_armor , Legs_armor ,Back_armor,
                             Shoulder_armor , Wrist_armor , Belt_armor,
                             Ring , Trinket , Weapon , Amulet  )
-from django.db.models.query import QuerySet
 from django.contrib.auth.decorators import login_required
 from .forms.character_form import GameCharacterForm
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django.urls import reverse
-from django.db.models import Q
 
 @login_required
 def profile(request):

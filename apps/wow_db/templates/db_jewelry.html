@@ -37,33 +37,18 @@
             <div id="online"><h2>Онлайн: 0 </h2></div>
         </div>
         <div class="armor_list">
-            <h1>Список Брони</h1>
+            <h1>Список Бижутерии</h1>
            
-    <form method="get" action="{% url 'db_main_page' %}">
-        <label for="armor_type">Тип брони:</label>
-        <select name="armor_type" id="armor_type">
-            <option value="">Всё</option>
-            <option value="Plate Armor">Латы</option>
-            <option value="Mail Armor">Кольчуга</option>
-            <option value="Leather Armor">Кожа</option>
-            <option value="Сloth Armor">Ткань</option>
-            <option value="Cosmetic">Косметика</option>
-        </select>
-        <label for="armor_slot">Слот:</label>
-        <select name="armor_slot" id="armor_slot">
+    <form method="get" action="{% url 'db_jewelry_page' %}">
+        <label for="jewelry_slot">Слот:</label>
+        <select name="jewelry_slot" id="jewelry_slot">
          
-            <option value="Грудь">Грудь</option>
-            <option value="Голова">Голова</option>
-            <option value="Ступни">Ступни</option>
-            <option value="Кисти рук">Кисти рук</option>
-            <option value="Плечи">Плечи</option>
-            <option value="Пояс">Пояс</option>
-            <option value="Ноги">Ноги</option>
-            <option value="Запястья">Запястья</option>
-            <option value="Спина">Спина</option>
+            <option value="Шея">Шея</option>
+            <option value="Палец">Палец</option>
+            <option value="Тринкет">Тринкет</option>
         </select>
-        <label for="armor_quality">Качество:</label>
-        <select name="armor_quality" id="armor_quality">
+        <label for="jewelry_quality">Качество:</label>
+        <select name="jewelry_quality" id="jewelry_quality">
         <option value="">All</option>
         <option class="epic" value="Epic">Epic</option>
         <option class="rare" value="Rare">Rare</option>
@@ -81,8 +66,8 @@
                 <th onclick="sortTable(1)">ILvl</th>
                 <th onclick="sortTable(2)">Req.</th>
                 <th onclick="sortTable(3)">Armor</th>
+                <th onclick="sortTable(4)">Slot</th>
                 <th onclick="sortTable(5)">Type</th>
-                <th onclick="sortTable(4)">Quntity</th>
             </tr>
         </thead>
      
@@ -104,8 +89,6 @@
                         {% if armor.quality == 'Epic' %}epic
                         {% elif armor.quality == 'Rare' %}rare
                         {% endif %}">Качество: {{ armor.quality }}</p>
-                        <p>Тип брони:  {{ armor.armor_type }} </p>
-                        <p>Броня:  {{ armor.armor }}</p>
                         {% if armor.strength %}
                         <p>+{{ armor.strength }} к силе</p>
                         {% endif %}
@@ -130,6 +113,9 @@
                         {% if armor.mastery  %}
                         <p class="green">+{{ armor.mastery }} к искустности</p>
                         {% endif %}
+                        {% if armor.unique_spell %}
+                        <p class="green">{{ armor.unique_spell }}</p>
+                        {% endif %}
                         {% if armor.required_level   %}
                         <p>Требуется {{ armor.required_level  }}-й ур.</p>
                         {% endif %}
@@ -152,8 +138,8 @@
         <div class="pagination">
             <span class="step-links">
                 {% if armors.has_previous %}
-                    <a href="?page=1{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}"><< Первая</a>
-                    <a href="?page={{ armors.previous_page_number }}{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}">< Назад</a>
+                    <a href="?page=1{% if jewelry_type_filter %}&jewelry_type={{ jewelry_type_filter }}{% endif %}{% if jewelry_slot_filter %}&jewelry_slot={{ jewelry_slot_filter }}{% endif %}"><< Первая</a>
+                    <a href="?page={{ armors.previous_page_number }}{% if jewelry_type_filter %}&ajewelry_type={{ jewelry_type_filter }}{% endif %}{% if jewelry_slot_filter %}&jewelry_slot={{ jewelry_slot_filter }}{% endif %}">< Назад</a>
                 {% endif %}
         
                 <span class="current">
@@ -161,8 +147,8 @@
                 </span>
         
                 {% if armors.has_next %}
-                    <a href="?page={{ armors.next_page_number }}{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}">Cледующая ></a>
-                    <a href="?page={{ armors.paginator.num_pages }}{% if armor_type_filter %}&armor_type={{ armor_type_filter }}{% endif %}{% if armor_slot_filter %}&armor_slot={{ armor_slot_filter }}{% endif %}">Последняя >></a>
+                    <a href="?page={{ armors.next_page_number }}{% if jewelry_type_filter %}&jewelry_type={{ jewelry_type_filter }}{% endif %}{% if jewelry_slot_filter %}&jewelry_slot={{ jewelry_slot_filter }}{% endif %}">Cледующая ></a>
+                    <a href="?page={{ armors.paginator.num_pages }}{% if jewelry_type_filter %}&jewelry_type={{ jewelry_type_filter }}{% endif %}{% if jewelry_slot_filter %}&jewelry_slot={{ jewelry_slot_filter }}{% endif %}">Последняя >></a>
                 {% endif %}
             </span>
         </div>

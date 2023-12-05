@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/css/main_db.css' %}">
+    <link rel="stylesheet" href="https://fonts.google.com/specimen/Lexend">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>Database</title>
+</head>
+<body>
+    <div class="main">
+        <div class="head">
+            <div id="logo">
+                <img id="server_logo" src="https://sirus.one/_nuxt/logo.65100e59.png" alt="">
+            </div>
+            <a href="http://127.0.0.1:8000/"><div id="faq"><h2>О НАС</h2></div></a>
+            <div id="db" class="dropdown">
+                <h2>База знаний</h2>
+                <div id="dropdownContent" class="dropdown-content">
+                  <a href="http://127.0.0.1:8000/database/armor/">Броня</a>
+                  <a href="http://127.0.0.1:8000/database/jewelry/">Бижутерия</a>
+                  <a href="http://127.0.0.1:8000/database/weapon/">Оружие</a>
+                </div>
+              </div>
+        
+            <a href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
+            <a href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
+            {% if user.is_authenticated %}
+            <a href="http://127.0.0.1:8000/wow/profile/"><div id="reg"><h2>Мой профиль</h2></div></a>
+            <a href="{% url 'logout' %}"><div id="auth"><h2>Выйти</h2></div></a>
+            {% else %}
+            <a href="http://127.0.0.1:8000/wow/login/"><div id="auth"><h2>Войти</h2></div></a>
+            <a href="http://127.0.0.1:8000/wow/register/"><div id="reg"><h2>Регистрация</h2></div></a>
+            {% endif %}
+            <div id="online"><h2>Онлайн: 0 </h2></div>
+        </div>
+        <div class="armor_list">
+            <h1>Список Оружия</h1>
+           
+    <form method="get" action="{% url 'db_weapon_page' %}">
+        <label for="weapon_type">Тип Оружия:</label>
+        <select name="weapon_type" id="weapon_type">
+            <option value="">Всё</option>
+            <option value="Two-Handed Axes">Двуручный топор</option>
+            <option value="Polearms">Древковое оружие</option>
+            <option value="Two-Handed Swords">Двуручный меч</option>
+            <option value="Staves">Посох</option>
+            <option value="Two-Handed Maces">Двуручная булава</option>
+        </select>
+
+        <label for="weapon_quality">Качество:</label>
+        <select name="weapon_quality" id="weapon_quality">
+        <option value="">All</option>
+        <option class="epic" value="Epic">Epic</option>
+        <option class="rare" value="Rare">Rare</option>
+        <option class="uncommon" value="Uncommon">Uncommon</option>
+        
+    </select>
+        <label for="search">Название:</label>
+        <input type="text" name="search" id="search" value="{{ search_term }}">
+        <button type="submit">Поиск</button>
+    </form>
+    <table  id="armor-table">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Name</th>
+                <th onclick="sortTable(1)">ILvl</th>
+                <th onclick="sortTable(2)">Req.</th>
+                <th onclick="sortTable(3)">DPS</th>
+                <th onclick="sortTable(5)">Type</th>
+                <th onclick="sortTable(4)">Quntity</th>
+            </tr>
+        </thead>
+     
+            {% for weapon in weapons %}
+                <tr>
+                    <td class="armor-tooltip" data-armor-type="{{ weapon.weapon_type }}">
+                        <a href="{{ weapon.item_url }}" class="tooltip-trigger"><img id="item_img" src="{{ weapon.item_img }}" alt=""></a>
+                        <h4 class="tooltip-trigger"><a class="
+                            {% if weapon.quality == 'Epic' %}epic
+                            {% elif weapon.quality == 'Rare' %}rare
+                            {% endif %}" href="{{ weapon.item_url }}">{{ weapon.title }}</a></h4>
+                        <div class="tooltip-content">
+                        <p class="
+                        {% if weapon.quality == 'Epic' %}epic
+                        {% elif weapon.quality == 'Rare' %}rare
+                        {% endif %}">{{ weapon.title }}</p>
+                        <p class="yellow">Уровень предмета: {{ weapon.item_level }}</p>
+                        <p class="
+                        {% if weapon.quality == 'Epic' %}epic
+                        {% elif weapon.quality == 'Rare' %}rare
+                        {% endif %}">Качество: {{ weapon.quality }}</p>
+                        <p>Тип оружия:  {{ weapon.waepon_type }} </p>
+                        <p>Урон: {{ weapon.min_damage }} - {{ weapon.max_damage }}</p>
+                        <p>({{ weapon.damage_per_second }} ед.урона в секнуду)</p>
+                        <p>Скорость: {{ weapon.attack_speed }}</p>
+                        {% if weapon.strength %}
+                        <p>+{{ weapon.strength }} к силе</p>
+                        {% endif %}
+                        {% if weapon.intelect  %}
+                        <p>+{{ weapon.intelect  }} к интелекту</p>
+                        {% endif %}
+                        {% if weapon.agility  %}
+                        <p>+{{ weapon.agility  }} к ловкости</p>
+                        {% endif %}
+                        {% if weapon.stamina %}
+                        <p>+{{ weapon.stamina }} к выносливости</p>
+                        {% endif %}
+                        {% if weapon.haste_rating  %}
+                        <p class="green">+{{ weapon.haste_rating }} к скорости</p>
+                        {% endif %}
+                        {% if weapon.crit_rating  %}
+                        <p class="green">+{{ weapon.crit_rating }} к критическому удару</p>
+                        {% endif %}
+                        {% if armor.versatility  %}
+                        <p class="green">+{{ armor.versatility }} к универсальности</p>
+                        {% endif %}
+                        {% if weapon.mastery  %}
+                        <p class="green">+{{ weapon.mastery }} к искустности</p>
+                        {% endif %}
+                        {% if weapon.required_level   %}
+                        <p>Требуется {{ weapon.required_level  }}-й ур.</p>
+                        {% endif %}
+                        </div>
+                        </div>
+                </td>
+                    <td>{{ weapon.item_level }}</td>
+                    <td>{{ weapon.required_level }}</td>
+                    <td>{{ weapon.damage_per_second }}</td>
+                    <td>{{ weapon.waepon_type }}</td>
+                    <td class="
+                    {% if weapon.quality == 'Epic' %}epic
+                    {% elif weapon.quality == 'Rare' %}rare
+                    {% endif %}">{{ weapon.quality }}</td>
+                </tr>
+            {% endfor %}
+
+    </table>
+        </div>
+        <div class="pagination">
+            <span class="step-links">
+                {% if weapons.has_previous %}
+                    <a href="?page=1{% if weapon_type_filter %}&weapon_type={{ weapon_type_filter }}{% endif %}{% if weapon_slot_filter %}&weapon_slot={{ weapon_slot_filter }}{% endif %}"><< Первая</a>
+                    <a href="?page={{ weapons.previous_page_number }}{% if weapon_type_filter %}&weapon_type={{ weapon_type_filter }}{% endif %}{% if weapon_slot_filter %}&weapon_slot={{ weapon_slot_filter_filter }}{% endif %}">< Назад</a>
+                {% endif %}
+        
+                <span class="current">
+                    Страница {{ weapons.number }} из {{ weapons.paginator.num_pages }}.
+                </span>
+        
+                {% if weapons.has_next %}
+                    <a href="?page={{ weapons.next_page_number }}{% if weapon_type_filter %}&weapon_type={{ weapon_type_filter }}{% endif %}{% if weapon_slot_filter %}&weapon_slot={{ weapon_slot_filter }}{% endif %}">Cледующая ></a>
+                    <a href="?page={{ weapons.paginator.num_pages }}{% if weapon_type_filter %}&weapon_type={{ weapon_type_filter }}{% endif %}{% if weapon_slot_filter %}&weapon_slot={{ weapon_slot_filter }}{% endif %}">Последняя >></a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+</body>
+<script src="{% static 'style/js/script1.js' %}"></script>
+<script src="{% static 'style/js/header.js' %}"></script>
+</html>

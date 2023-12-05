@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'style/css/main.css' %}">
@@ -15,7 +16,15 @@
                 <img id="server_logo" src="https://sirus.one/_nuxt/logo.65100e59.png" alt="">
             </div>
             <a href="http://127.0.0.1:8000/"><div id="faq"><h2>О НАС</h2></div></a>
-            <a href="http://127.0.0.1:8000/database/"><div id="db"><h2>База знаний</h2></div></a>
+            <div id="db" class="dropdown">
+                <h2>База знаний</h2>
+                <div id="dropdownContent" class="dropdown-content">
+                  <a href="http://127.0.0.1:8000/database/armor/">Броня</a>
+                  <a href="http://127.0.0.1:8000/database/jewelry/">Бижутерия</a>
+                  <a href="http://127.0.0.1:8000/database/weapon/">Оружие</a>
+                </div>
+              </div>
+        
             <a href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
             <a href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
             {% if user.is_authenticated %}
@@ -78,4 +87,5 @@
         <div class="footer"></div>
     </div>
 </body>
+<script src="{% static 'style/js/header.js' %}"></script>
 </html>
