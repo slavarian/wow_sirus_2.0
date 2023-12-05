@@ -19,14 +19,15 @@
             <div id="db" class="dropdown">
                 <h2>База знаний</h2>
                 <div id="dropdownContent" class="dropdown-content">
-                  <a href="http://127.0.0.1:8000/database/armor/">Броня</a>
-                  <a href="http://127.0.0.1:8000/database/jewelry/">Бижутерия</a>
+                  <a href="http://127.0.0.1:8000/database/armor/?armor_type=&armor_slot=%D0%93%D1%80%D1%83%D0%B4%D1%8C&armor_quality=&search=">Броня</a>
+                  <a href="http://127.0.0.1:8000/database/jewelry/?jewelry_slot=%D0%A8%D0%B5%D1%8F&jewelry_quality=&search=">Бижутерия</a>
                   <a href="http://127.0.0.1:8000/database/weapon/">Оружие</a>
                 </div>
               </div>
         
             <a href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
             <a href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
+            <a href="http://127.0.0.1:8000/news/"><div id="online"><h2>Новости</h2></div></a>
             {% if user.is_authenticated %}
             <a href="http://127.0.0.1:8000/wow/profile/"><div id="reg"><h2>Мой профиль</h2></div></a>
             <a href="{% url 'logout' %}"><div id="auth"><h2>Выйти</h2></div></a>
@@ -34,7 +35,7 @@
             <a href="http://127.0.0.1:8000/wow/login/"><div id="auth"><h2>Войти</h2></div></a>
             <a href="http://127.0.0.1:8000/wow/register/"><div id="reg"><h2>Регистрация</h2></div></a>
             {% endif %}
-            <div id="online"><h2>Онлайн: 0 </h2></div>
+          
         </div>
         <div class="armor_list">
             <h1>Список Бижутерии</h1>
@@ -42,7 +43,6 @@
     <form method="get" action="{% url 'db_jewelry_page' %}">
         <label for="jewelry_slot">Слот:</label>
         <select name="jewelry_slot" id="jewelry_slot">
-         
             <option value="Шея">Шея</option>
             <option value="Палец">Палец</option>
             <option value="Тринкет">Тринкет</option>
@@ -67,7 +67,7 @@
                 <th onclick="sortTable(2)">Req.</th>
                 <th onclick="sortTable(3)">Armor</th>
                 <th onclick="sortTable(4)">Slot</th>
-                <th onclick="sortTable(5)">Type</th>
+                <th onclick="sortTable(5)">Quantity</th>
             </tr>
         </thead>
      

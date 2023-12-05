@@ -2,13 +2,16 @@
 
 {% block content %}
   <h2>Список файлов</h2>
-  <ul>
+  
     {% for file in files %}
-      <li>
-        {{ file.file.name }} - <a href="{% url 'file_download' file.id %}">Скачать</a>
-      </li>
+     
+      <h3>{{ file.heading }}</h3>
+     <p>{{ file.title }}</p> 
+     <p> {{ file.uploaded_by }}  {{ file.uploaded_at }}  </p>
+     <button><a href="{% url 'file_download' file.id %}">Скачать</a></button>
+    
     {% endfor %}
-  </ul>
+ 
 
   
 {% endblock %}

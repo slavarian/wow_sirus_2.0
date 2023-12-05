@@ -47,7 +47,8 @@ PROJECT_APPS = [
     'client_files.apps.ClientFilesConfig',
     'game_characters.apps.GameCharactersConfig',
     'wow_db.apps.WowDbConfig',
-    'main.apps.MainConfig'
+    'main.apps.MainConfig',
+    'news.apps.NewsConfig',
 
 ]
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS
@@ -147,4 +148,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'auths/static'),
     os.path.join(BASE_DIR, 'main/static'),
     os.path.join(BASE_DIR, 'wow_db/static'),
+    os.path.join(BASE_DIR, 'news/static'),
+    os.path.join(BASE_DIR, 'client_files/static'),
+    os.path.join(BASE_DIR, 'game_characters/static'),
 ]

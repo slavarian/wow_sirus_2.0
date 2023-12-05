@@ -5,6 +5,16 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class UploadedFile(models.Model):
+    heading = models.CharField(
+        verbose_name='заголовок',
+        max_length=255,
+    )
+
+    title = models.TextField(
+        verbose_name='описание',
+      
+    )
+
     file = models.FileField(
         verbose_name='название файла',
         upload_to=''
@@ -23,9 +33,9 @@ class UploadedFile(models.Model):
 class FileUploadForm(forms.ModelForm):
     class Meta:
         model = UploadedFile
-        fields = ['file']
+        fields = ['heading', 'title', 'file']
         widgets = {
-            'uploaded_by': forms.HiddenInput(),  # Скрываем поле от пользователя
+            'uploaded_by': forms.HiddenInput(),
         }
 
     def __init__(self, *args, **kwargs):

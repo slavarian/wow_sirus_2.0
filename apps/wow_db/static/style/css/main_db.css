@@ -222,6 +222,7 @@ select {
     border-radius: 4px;
     box-sizing: border-box;
     color: #bbb;
+    
     font-size: 14px;
     max-width: 100%;
     padding: 6px 12px;
@@ -248,8 +249,9 @@ th {
     transition: background-color 0.3s ease; 
   }
   
-  th:hover {
+th:hover {
     background-color: #838383;
+    backdrop-filter: blur(10px);
   }
 
 #item_url {
@@ -297,12 +299,13 @@ th {
     display: none;
     position: absolute;
     border-bottom: 1px solid rgba(128, 128, 128, 0.438);
-    background-color: rgba(0, 0, 0, 0.493);
-    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.822);
+    backdrop-filter: blur(15px);
     color: #fff;
     z-index: 7; 
     width: 200px;
     top: 100px;
+    backdrop-filter: blur(15px);
   }
   
 .dropdown {
@@ -324,4 +327,26 @@ th {
   
 .dropdown-content a:hover {
     background-color: #424242;
+    backdrop-filter: blur(15px);
+  }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: yellow; 
+    transition: width 0.3s ease;
+  }
+
+
+a:hover::after {
+    width: 100%;
   }

@@ -5,12 +5,22 @@ from wow_db.models import (Body_armor , Head_armor , Boots_armor ,
                            Gloves_armor , Legs_armor ,Back_armor,
                             Shoulder_armor , Wrist_armor , Belt_armor,
                             Ring , Trinket , Weapon , Amulet  )
-# Create your views here.
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def character_raiting(request):
     characters = Character.objects.all()
     character_sorted = sorted(characters, key=lambda x: x.gear_score, reverse=True)
-    return render(request, 'character_raiting.html', {'character_sorted': character_sorted})
+    paginator = Paginator(characters, 10)
+    page = request.GET.get('page')
+
+    try:
+        characters = paginator.page(page)
+    except PageNotAnInteger:
+        characters = paginator.page(1)
+    except EmptyPage:
+        characters = paginator.page(paginator.num_pages)
+
+    return render(request, 'character_raiting.html', {'character_sorted': character_sorted, 'characters': characters})
 
 
 def character_views(request, character_id):

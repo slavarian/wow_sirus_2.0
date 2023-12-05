@@ -16,7 +16,6 @@ urlpatterns = [
     path('login/', auth_views.LogoutView.as_view(), name='logout'),
     path('create_character/', create_character, name='create_character'),
     path('get_races/', get_races, name='get_races'),
-    # path('equip_gear/', equip_gear, name='equip_gear'),
     path('armors/<int:character_id>/<str:armor_type>/', view_armors, name='view_armors'),
 
     path('equip_armor/<int:character_id>/<int:armor_id>/<str:armor_type>/', equip_armor, name='equip_armor'),

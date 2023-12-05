@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from game_characters.models import Character
-
+from PIL import Image
 
 
 class MyUserManager(BaseUserManager):
@@ -71,7 +71,23 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True
     )
+    avatar = models.ImageField(
+        verbose_name='аватарка',
+        upload_to='avatars/',  
+        null=True,
+        blank=True,
+    )
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.avatar:
+            img = Image.open(self.avatar.path)
+
+            if img.height > 300 or img.width > 300:
+                output_size = (300, 300)
+                img.thumbnail(output_size)
+                img.save(self.avatar.path)
     
     is_staff = models.BooleanField(
         default=False

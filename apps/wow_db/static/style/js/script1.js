@@ -81,7 +81,7 @@ function sortTable(n) {
     }
   }
 
-  document.getElementById('dbDropdown').addEventListener('click', function () {
+document.getElementById('dbDropdown').addEventListener('click', function () {
     var dropdownContent = this.querySelector('.dropdown-content');
     dropdownContent.classList.toggle('active');
 });

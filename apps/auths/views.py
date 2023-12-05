@@ -3,12 +3,15 @@ from django.shortcuts import render, get_object_or_404
 from .forms.login_form import LoginForm
 from django.http.response import HttpResponse , HttpResponseRedirect , HttpResponseForbidden
 from .forms.reg_form import RegistrationForm
+from .forms.avatar_form import AvatarChangeForm
 from django.contrib.auth import login, authenticate
 from .models import Character
 from wow_db.models import (Body_armor , Head_armor , Boots_armor ,
                            Gloves_armor , Legs_armor ,Back_armor,
                             Shoulder_armor , Wrist_armor , Belt_armor,
                             Ring , Trinket , Weapon , Amulet  )
+from client_files.models import FileUploadForm
+from news.forms.news_form import NewsCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms.character_form import GameCharacterForm
 from django.http import JsonResponse
@@ -19,7 +22,40 @@ from django.urls import reverse
 def profile(request):
     user_account = request.user 
     characters = Character.objects.filter(user=request.user)
-    return render(request, 'profile.html', {'user_account': user_account , 'characters': characters})
+
+    if request.method == 'POST':
+        avatar_form = AvatarChangeForm(request.POST, request.FILES, instance=request.user)
+        if avatar_form.is_valid():
+            avatar_form.save()
+
+    avatar_form = AvatarChangeForm(instance=request.user)
+
+    if request.user.is_staff:
+        if request.method == 'POST':
+            form = FileUploadForm(request.POST, request.FILES, user=request.user)
+            if form.is_valid():
+                uploaded_file = form.save(commit=False)
+                uploaded_file.uploaded_by = request.user
+                uploaded_file.save()
+                return redirect('download')
+        else:
+            form = FileUploadForm(user=request.user)
+        if request.method == 'POST':
+            news_form = NewsCreationForm(request.POST)
+            if news_form.is_valid():
+                news = news_form.save(commit=False)
+                news.author = request.user
+                news.save()
+        else:
+            news_form = NewsCreationForm()
+        
+        return render(request, 'profile.html', {'user_account': user_account, 'characters': characters,
+                                                 'upload_form': form ,  'avatar_form': avatar_form ,'news_form':
+                                                   news_form})
+
+    return render(request, 'profile.html', {'user_account': user_account, 'characters': 
+                                            characters ,  'avatar_form': avatar_form})
+
 
 def character_info(request, character_id):
     character = get_object_or_404(Character, id=character_id)
@@ -214,7 +250,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('main_page') 
+                return redirect('profile') 
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})

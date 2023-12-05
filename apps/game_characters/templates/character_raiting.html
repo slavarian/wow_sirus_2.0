@@ -3,21 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/css/raiting.css' %}">
     <title>Document</title>
 </head>
 <body>
-    <h1>Рейтинг персонажей</h1>
-    {% regroup character_sorted by gear_score as ranked_characters %}
-    {% for group in ranked_characters%}
-    {% for char in group.list %}
-    <h3>
-        <p>
-            № {{ forloop.parentloop.counter }} 
-            <a href="{% url 'character_views' char.id %}">{{ char.nick_name }}</a>
-            {{ char.gear_score }}
-        </p>
-    </h3>
-    {% endfor %}
-    {% endfor %}
-</body>
+ 
+    <div class="head">
+        <div id="logo">
+            <img id="server_logo" src="https://sirus.one/_nuxt/logo.65100e59.png" alt="">
+        </div>
+        <a class="animated" href="http://127.0.0.1:8000/"><div id="faq"><h2>О НАС</h2></div></a>
+        <div id="db" class="dropdown">
+            <h2>База знаний</h2>
+            <div id="dropdownContent" class="dropdown-content">
+              <a class="animated" href="http://127.0.0.1:8000/database/armor/?armor_type=&armor_slot=%D0%93%D1%80%D1%83%D0%B4%D1%8C&armor_quality=&search=">Броня</a>
+              <a class="animated" href="http://127.0.0.1:8000/database/jewelry/?jewelry_slot=%D0%A8%D0%B5%D1%8F&jewelry_quality=&search=">Бижутерия</a>
+              <a class="animated" href="http://127.0.0.1:8000/database/weapon/">Оружие</a>
+            </div>
+          </div>
+    
+        <a class="animated" href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
+        <a class="animated" href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
+        <a class="animated" href="http://127.0.0.1:8000/news/"><div id="online"><h2>Новости</h2></div></a>
+        {% if user.is_authenticated %}
+        <a class="animated" href="http://127.0.0.1:8000/wow/profile/"><div id="reg"><h2>Мой профиль</h2></div></a>
+        <a class="animated" href="{% url 'logout' %}"><div id="auth"><h2>Выйти</h2></div></a>
+        {% else %}
+        <a class="animated" href="http://127.0.0.1:8000/wow/login/"><div id="auth"><h2>Войти</h2></div></a>
+        <a class="animated" href="http://127.0.0.1:8000/wow/register/"><div id="reg"><h2>Регистрация</h2></div></a>
+        {% endif %}
+          </div>
+        <h1>Рейтинг персонажей</h1>
+        <div class="ranking-container">
+            <table id="character-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">№</th>
+                        <th onclick="sortTable(1)">Имя</th>
+                        <th onclick="sortTable(2)">Гир-Скор</th>
+                        <th onclick="sortTable(3)">Класс</th>
+                        <th onclick="sortTable(4)">Фракция</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for char in characters %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'character_views' char.id %}">{{ char.nick_name }}</a></td>
+                            <td>{{ char.gear_score }}</td>
+                            <td>{{ char.specialization.title }}</td>
+                            <td class="{% if char.fraction.title == 'Horde' %}fraction-horde{% elif char.fraction.title == 'Alliance' %}fraction-alliance{% endif %}">
+                                {{ char.fraction.title }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="pagination">
+                <span class="step-links">
+                    {% if characters.has_previous %}
+                        <a href="?page=1"><< Первая</a>
+                        <a href="?page={{ characters.previous_page_number }}">< Назад</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Страница {{ characters.number }} из {{ characters.paginator.num_pages }}.
+                    </span>
+            
+                    {% if characters.has_next %}
+                        <a href="?page={{ characters.next_page_number }}">Cледующая ></a>
+                        <a href="?page={{ characters.paginator.num_pages }}">Последняя >></a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        
+<script src="{% static 'style/js/header.js' %}"></script>
+<script src="{% static 'style/js/rait.js' %}"></script>
 </html>

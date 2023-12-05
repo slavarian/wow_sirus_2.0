@@ -3,35 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style/css/profile.css' %}">
     <title>Document</title>
 </head>
 <body>
     <!DOCTYPE html>
 <html>
-<head>
-    {% if user.is_authenticated %}
-    <h1>Аккаунт: {{ user.email }}</h1>
-    <h1>баланс: {{ user.balance  }}$</h1>
-    <h1>Ваши персонажи: </h1>
-    <ul>
-      {% for character in characters %}
-        <li><a href="{% url 'character_info' character.id %}">{{ character.nick_name }}</a></li>
-      {% endfor %}
-    </ul>   
 
- 
+{% if user.is_authenticated %}
+<h1>Аккаунт: {{ user.email }}</h1>
+<h1>Баланс: {{ user.balance }}$</h1>
+<h1>Ваши персонажи: </h1>
+<ul>
+    {% for character in characters %}
+        <li><a href="{% url 'character_info' character.id %}">{{ character.nick_name }}</a></li>
+    {% endfor %}
+</ul>
+
+
+<div class="avatar-container">
+    {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" alt="Аватар" class="avatar">
+    {% else %}
+        <p>Нет аватарки</p>
+    {% endif %}
+</div>
+
+<form method="post" enctype="multipart/form-data" class="avatar-form">
+    {% csrf_token %}
+    {{ avatar_form.as_p }}
+    <button type="submit" class="btn btn-primary">Изменить аватарку</button>
+</form>
+
+<a href="/wow/create_character" class="btn btn-success">Создать персонажа</a>
+<form action="{% url 'logout' %}" method="post" style="display: inline-block;">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Выход</button>
+</form>
+{% endif %}
+{% if user.is_staff %}
+<h2>Панель загрузки файлов</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ upload_form.as_p }}
+    <button type="submit">Загрузить файл</button>
+</form>
+<form method="post" class="news-form">
+  {% csrf_token %}
+  {{ news_form.as_p }}
+  <button type="submit">Создать новость</button>
+</form>
+{% endif %}
 </head>
 <body>
-    <a href="/wow/create_character">Создать персонажа</a>
-    <ul>
-       <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-    <button type="submit">Выход</button>
-  </form>
-    </ul>
-    {% endif %}
 
-</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </html>
 </body>
 </html>
