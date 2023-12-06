@@ -1,7 +1,7 @@
 from django.urls import path
 
 # Local
-from .views import character_info , create_character ,get_races , view_armors , equip_armor
+from .views import character_info , create_character ,get_races , view_armors , equip_armor , unequip_gear
 from . import views
 from django.contrib.auth import views as auth_views 
 from django.conf import settings
@@ -17,8 +17,8 @@ urlpatterns = [
     path('create_character/', create_character, name='create_character'),
     path('get_races/', get_races, name='get_races'),
     path('armors/<int:character_id>/<str:armor_type>/', view_armors, name='view_armors'),
-
     path('equip_armor/<int:character_id>/<int:armor_id>/<str:armor_type>/', equip_armor, name='equip_armor'),
+    path('unequip_gear/', unequip_gear, name='unequip_gear'),
 
 ]
 if settings.DEBUG:

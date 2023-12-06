@@ -316,55 +316,6 @@ class Character(models.Model):
         elif armor_type == 'weapon2':
             self.weapon2 = armor
 
-    #     self.save()
-    # def equip_body_armor(self, body_armor ):
-    #     self.body_armor = body_armor
-    #     self.save()
-    # def equip_head_armor(self, head_armor):
-    #     self.head_armor = head_armor
-    #     self.save()
-    # def equip_boots_armor(self, boots_armor):
-    #     self.boots_armor = boots_armor
-    #     self.save()
-    # def equip_gloves_armor(self, gloves_armor):
-    #     self.gloves_armor = gloves_armor
-    #     self.save()
-    # def equip_legs_armor(self, legs_armor):
-    #     self.legs_armor = legs_armor
-    #     self.save()
-    # def equip_back_armor(self, back_armor):
-    #     self.back_armor = back_armor
-    #     self.save() 
-    # def equip_shoulder_armor(self, shoulder_armor):
-    #     self.shoulder_armor = shoulder_armor
-    #     self.save() 
-    # def equip_wrist_armor(self, wrist_armor):
-    #     self.wrist_armor = wrist_armor
-    #     self.save()
-    # def equip_belt_armor(self, belt_armor):
-    #     self.belt_armor = belt_armor
-    #     self.save()
-    # def equip_ring1(self, ring1):
-    #     self.ring1 = ring1
-    #     self.save()
-    # def equip_ring2(self, ring2):
-    #     self.ring2 = ring2
-    #     self.save()
-    # def equip_amulet(self, amulet):
-    #     self.amulet = amulet
-    #     self.save()
-    # def equip_trinket1(self, trinket1):
-    #     self.trinket1 = trinket1
-    #     self.save()
-    # def equip_trinket2(self, trinket2):
-    #     self.trinket2 = trinket2
-    #     self.save()   
-    # def equip_weapon1(self, weapon1):
-    #     self.weapon1 = weapon1
-    #     self.save()            
-    # def equip_weapon2(self, weapon2):
-    #     self.weapon2 = weapon2
-    #     self.save() 
 
     @property
     def gear_score(self):
@@ -431,7 +382,7 @@ class Character(models.Model):
         total_versatility = 0
         total_mastery = 0
         total_armor_rating = 0
-        total_health = 10
+        total_health = 50
     
         
         
@@ -600,10 +551,10 @@ class Character(models.Model):
             'strength': total_strength,
             'intellect': total_intellect,
             'stamina': total_stamina,
-            'crit': int(total_crit),
-            'haste_rating': total_haste_rating,
-            'versatility': total_versatility,
-            'mastery': total_mastery,
+            'crit': int(total_crit)/100,
+            'haste_rating': total_haste_rating/100,
+            'versatility': total_versatility/100,
+            'mastery': total_mastery/100,
             'armor_rating': total_armor_rating,
             'health': total_health*total_stamina
         }

@@ -1,4 +1,5 @@
-console.log('Script loaded successfully');
+
+
 function toggleArmorList(dropdownId) {
     var dropdown = document.getElementById(dropdownId);
     dropdown.classList.toggle('show');
@@ -162,4 +163,7 @@ function hideTooltip(tooltipId) {
             glovesArmorOptions.classList.toggle('show');
         });
 
+        
+
     });
+

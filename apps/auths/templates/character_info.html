@@ -6,12 +6,38 @@
     <title>{{ character.nick_name }}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'style/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/header.css' %}">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
 <div class="main">
-    <div class="head"></div>
+    <div class="head">
+        <div id="logo">
+            <img id="server_logo" src="https://sirus.one/_nuxt/logo.65100e59.png" alt="">
+        </div>
+        <a class="a" href="http://127.0.0.1:8000/"><div id="faq"><h2>О НАС</h2></div></a>
+        <div id="db" class="dropdown">
+            <h2>База знаний</h2>
+            <div id="dropdownContent" class="dropdown-content">
+              <a class="a" href="http://127.0.0.1:8000/database/armor/?armor_type=&armor_slot=%D0%93%D1%80%D1%83%D0%B4%D1%8C&armor_quality=&search=">Броня</a>
+              <a class="a" href="http://127.0.0.1:8000/database/jewelry/?jewelry_slot=%D0%A8%D0%B5%D1%8F&jewelry_quality=&search=">Бижутерия</a>
+              <a class="a" href="http://127.0.0.1:8000/database/weapon/">Оружие</a>
+            </div>
+          </div>
+    
+        <a class="a" href="http://127.0.0.1:8000/character/raiting/"><div id="pve_rate"><h2>PvE ладдер</h2></div></a>
+        <a class="a" href="http://127.0.0.1:8000/client/download/"><div id="download"><h2>Cкачать</h2></div></a>
+        <a class="a" href="http://127.0.0.1:8000/news/"><div id="online"><h2>Новости</h2></div></a>
+        {% if user.is_authenticated %}
+        <a class="a" href="http://127.0.0.1:8000/wow/profile/"><div id="reg"><h2>Мой профиль</h2></div></a>
+        <a class="a" href="{% url 'logout' %}"><div id="auth"><h2>Выйти</h2></div></a>
+        {% else %}
+        <a class="a" href="http://127.0.0.1:8000/wow/login/"><div id="auth"><h2>Войти</h2></div></a>
+        <a class="a" href="http://127.0.0.1:8000/wow/register/"><div id="reg"><h2>Регистрация</h2></div></a>
+        {% endif %}
+    </div>
+
     <div class="frac">
         <div class="f1">
             <div class="f_img">
@@ -34,8 +60,9 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('headArmorTooltip')" onmouseout="hideTooltip('headArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='head'%}">
-                            <img class="tooltip" src="{{ character.head_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/c3/Ui-paperdoll-slot-head.png/revision/latest?cb=20070607015044">
+                            <img class="tooltip" src="{% if character.head_armor.item_img %}{{ character.head_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/c/c3/Ui-paperdoll-slot-head.png/revision/latest?cb=20070607015044
+                            {% endif %}" width="100%" height="100%"  onmousedown="handleMouseDown(event, 'headArmor');">
                         </a>
                         <div class="tooltip-content" id="headArmorTooltip">
                         <p class="purple">{{ character.head_armor.title }}</p>
@@ -80,8 +107,9 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('AmuletTooltip')" onmouseout="hideTooltip('AmuletTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='amulet'%}">
-                            <img class="tooltip" src="{{ character.amulet.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/d/d4/Ui-paperdoll-slot-neck.png/revision/latest?cb=20070607015138">
+                        <img class="tooltip" src="{% if character.amulet.item_img %}{{ character.amulet.item_img }}{% else %}
+                        https://static.wikia.nocookie.net/wowpedia/images/d/d4/Ui-paperdoll-slot-neck.png/revision/latest?cb=20070607015138
+                        {% endif %}" width="100%" height="100%" onmousedown="handleMouseDown(event, 'amulet');">
                         </a>
                         <div class="tooltip-content" id="AmuletTooltip">
                         <p class="purple">{{ character.amulet.title }}</p>
@@ -125,8 +153,10 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('shoulderArmorTooltip')" onmouseout="hideTooltip('shoulderArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='shoulder'%}">
-                            <img class="tooltip" src="{{ character.shoulder_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/f/fa/Ui-paperdoll-slot-shoulder.png/revision/latest?cb=20070607015347">
+                            <img class="tooltip" src="{% if character.shoulder_armor.item_img %}
+                            {{ character.shoulder_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/f/fa/Ui-paperdoll-slot-shoulder.png/revision/latest?cb=20070607015347{% endif %}"
+                             width="100%" height="100%" onmousedown="handleMouseDown(event, 'shoulder_armor');">
                         </a>
                         <div class="tooltip-content" id="shoulderArmorTooltip">
                         <p class="purple">{{ character.shoulder_armor.title }}</p>
@@ -171,8 +201,11 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('backArmorTooltip')" onmouseout="hideTooltip('backArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='back'%}">
-                            <img class="tooltip" src="{{ character.back_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854">
+                            <img class="tooltip" src="{% if character.back_armor.item_img %}
+                            {{ character.back_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854{% endif %}"
+                             width="100%" height="100%" onmousedown="handleMouseDown(event, 'back_armor');">
+                           
                         </a>
                         <div class="tooltip-content" id="backArmorTooltip">
                         <p class="purple">{{ character.back_armor.title }}</p>
@@ -217,8 +250,10 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('bodyArmorTooltip')" onmouseout="hideTooltip('bodyArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='body'%}">
-                            <img class="tooltip" src="{{ character.body_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854">
+                            <img class="tooltip" src="{% if character.body_armor.item_img %}
+                            {{ character.body_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/b/b7/Ui-paperdoll-slot-chest.png/revision/latest?cb=20070606225854{% endif %}"
+                             width="100%" height="100%"  onmousedown="handleMouseDown(event, 'bodyArmor');">
                         </a>
                         <div class="tooltip-content" id="bodyArmorTooltip">
                         <p class="purple">{{ character.body_armor.title }}</p>
@@ -270,8 +305,11 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('wristArmorTooltip')" onmouseout="hideTooltip('wristArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='wirst'%}">
-                            <img class="tooltip" src="{{ character.wrist_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/1/1d/Ui-paperdoll-slot-wrists.png/revision/latest?cb=20070607015415">
+                            <img class="tooltip" src="{% if character.wrist_armor.item_img %}
+                            {{ character.wrist_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/1/1d/Ui-paperdoll-slot-wrists.png/revision/latest?cb=20070607015415{% endif %}"
+                             width="100%" height="100%"  onmousedown="handleMouseDown(event, 'wrist_armor');">
+                
                         </a>
                         <div class="tooltip-content" id="wristArmorTooltip">
                         <p class="purple">{{ character.wrist_armor.title }}</p>
@@ -325,8 +363,12 @@
                         <div class="e2">
                             <div class="tooltip-container" onmouseover="showTooltip('weapon1Tooltip')" onmouseout="hideTooltip('weapon1Tooltip')">
                             <a href="{% url 'view_armors' character_id=character.id armor_type='weapon'%}">
-                                <img class="tooltip" src="{{ character.weapon1.item_img }}"  width="100%" height="100%" style="position: absolute; z-index: 2;">
-                                <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/f/f5/Ui-paperdoll-slot-mainhand.png/revision/latest?cb=20070607015117">
+                                <img class="tooltip" src="{% if character.weapon1.item_img %}
+                            {{ character.weapon1.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/f/f5/Ui-paperdoll-slot-mainhand.png/revision/latest?cb=20070607015117{% endif %}"
+                            width="100%" height="100%"  onmousedown="handleMouseDown(event, 'weapon1');">
+                
+                          
                             </a>
                             <div class="tooltip-content" id="weapon1Tooltip">
                                 <p class="purple">{{ character.weapon1.title }}</p>
@@ -373,8 +415,11 @@
                         <div class="e2">
                             <div class="tooltip-container" onmouseover="showTooltip('weapon2Tooltip')" onmouseout="hideTooltip('weapon2Tooltip')">
                                 <a href="{% url 'view_armors' character_id=character.id armor_type='weapon'%}">
-                                    <img class="tooltip" src="{{ character.weapon2.item_img }}">
-                                    <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/3/30/Ui-paperdoll-slot-secondaryhand.png/revision/latest?cb=20070607015335">
+                                    <img class="tooltip" src="{% if character.weapon2.item_img %}
+                                    {{ character.weapon2.item_img }}{% else %}
+                                    https://static.wikia.nocookie.net/wowpedia/images/3/30/Ui-paperdoll-slot-secondaryhand.png/revision/latest?cb=20070607015335{% endif %}"
+                                    width="100%" height="100%"  onmousedown="handleMouseDown(event, 'weapon2');">
+                                    
                                 </a>
                                 <div class="tooltip-content" id="weapon2Tooltip">
                                     <p class="purple">{{ character.weapon2.title }}</p>
@@ -425,8 +470,11 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('glovesArmorTooltip')" onmouseout="hideTooltip('glovesArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='gloves'%}">
-                            <img class="tooltip" src="{{ character.gloves_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/2/22/Ui-paperdoll-slot-hands.png/revision/latest?cb=20070607015036">
+                            <img class="tooltip" src="{% if character.gloves_armor.item_img %}
+                            {{ character.gloves_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/2/22/Ui-paperdoll-slot-hands.png/revision/latest?cb=2007060701503{% endif %}"
+                            width="100%" height="100%"  onmousedown="handleMouseDown(event, 'gloves_armor');">
+   
                         </a>
                         <div class="tooltip-content" id="glovesArmorTooltip">
                             {% if character.gloves_armor %}
@@ -471,8 +519,11 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('beltArmorTooltip')" onmouseout="hideTooltip('beltArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='belt'%}">
-                            <img class="tooltip" src="{{ character.belt_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/cd/Ui-paperdoll-slot-waist.png/revision/latest?cb=20070607015409">
+                            <img class="tooltip" src="{% if character.belt_armor.item_img %}
+                            {{ character.belt_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/c/cd/Ui-paperdoll-slot-waist.png/revision/latest?cb=20070607015409{% endif %}"
+                            width="100%" height="100%" onmousedown="handleMouseDown(event, 'belt');">
+             
                         </a>
                         <div class="tooltip-content" id="beltArmorTooltip">
                             {% if character.belt_armor %}
@@ -517,8 +568,11 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('legsArmorTooltip')" onmouseout="hideTooltip('legsArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='legs'%}">
-                            <img class="tooltip" src="{{ character.legs_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/1/14/Ui-paperdoll-slot-legs.png/revision/latest?cb=20070607015103">
+                            <img class="tooltip" src="{% if character.legs_armor.item_img %}
+                            {{ character.legs_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/1/14/Ui-paperdoll-slot-legs.png/revision/latest?cb=20070607015103{% endif %}"
+                            width="100%" height="100%" onmousedown="handleMouseDown(event, 'legs_armor');">
+        
                         </a>
                         <div class="tooltip-content" id="legsArmorTooltip">
                             {% if character.legs_armor %}
@@ -563,8 +617,10 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('bootsArmorTooltip')" onmouseout="hideTooltip('bootsArmorTooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='boots'%}">
-                            <img class="tooltip" src="{{ character.boots_armor.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/a/a5/Ui-paperdoll-slot-feet.png/revision/latest?cb=20070607015023">
+                            <img class="tooltip" src="{% if character.boots_armor.item_img %}
+                            {{ character.boots_armor.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/a/a5/Ui-paperdoll-slot-feet.png/revision/latest?cb=20070607015023{% endif %}"
+                            width="100%" height="100%" onmousedown="handleMouseDown(event, 'boots_armor');">    
                         </a>
                         <div class="tooltip-content" id="bootsArmorTooltip">
                             {% if character.boots_armor %}
@@ -610,8 +666,10 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('ring1Tooltip')" onmouseout="hideTooltip('ring1Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='ring1'%}">
-                            <img class="tooltip" src="{{ character.ring1.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/c2/Ui-paperdoll-slot-finger.png/revision/latest?cb=20070607015031">
+                            <img class="tooltip" src="{% if character.ring1.item_img %}
+                            {{ character.ring1.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/c/c2/Ui-paperdoll-slot-finger.png/revision/latest?cb=20070607015031{% endif %}"
+                            width="100%" height="100%" onmousedown="handleMouseDown(event, 'ring1');">  
                         </a>
                         <div class="tooltip-content" id="ring1Tooltip">
                             {% if character.ring1 %}
@@ -656,8 +714,10 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('ring2Tooltip')" onmouseout="hideTooltip('ring2Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='ring2'%}">
-                            <img class="tooltip" src="{{ character.ring2.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/c/c2/Ui-paperdoll-slot-finger.png/revision/latest?cb=20070607015031">
+                            <img class="tooltip" src="{% if character.ring2.item_img %}
+                            {{ character.ring2.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/c/c2/Ui-paperdoll-slot-finger.png/revision/latest?cb=20070607015031{% endif %}"
+                            width="100%" height="100%" onmousedown="handleMouseDown(event, 'ring2');">  
                         </a>
                         <div class="tooltip-content" id="ring2Tooltip">
                             {% if character.ring2 %}
@@ -703,8 +763,10 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('trinket1Tooltip')" onmouseout="hideTooltip('trinket1Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='trinket1'%}">
-                            <img class="tooltip" src="{{ character.trinket1.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/2/26/Ui-paperdoll-slot-trinket.png/revision/latest?cb=20070607015403">
+                            <img class="tooltip" src="{% if character.trinket1.item_img %}
+                            {{ character.trinket1.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/2/26/Ui-paperdoll-slot-trinket.png/revision/latest?cb=20070607015403{% endif %}"
+                            width="100%" height="100%" onmousedown="handleMouseDown(event, 'trinket1');">  
                         </a>
                         <div class="tooltip-content" id="trinket1Tooltip">
                             {% if character.trinket1 %}
@@ -752,8 +814,10 @@
                 <div class="e1">
                     <div class="tooltip-container" onmouseover="showTooltip('trinket2Tooltip')" onmouseout="hideTooltip('trinket2Tooltip')">
                         <a href="{% url 'view_armors' character_id=character.id armor_type='trinket2'%}">
-                            <img class="tooltip" src="{{ character.trinket2.item_img }}" width="100%" height="100%">
-                            <img class="img_equip" src="https://static.wikia.nocookie.net/wowpedia/images/2/26/Ui-paperdoll-slot-trinket.png/revision/latest?cb=20070607015403">
+                            <img class="tooltip" src="{% if character.trinket2.item_img %}
+                            {{ character.trinket2.item_img }}{% else %}
+                            https://static.wikia.nocookie.net/wowpedia/images/2/26/Ui-paperdoll-slot-trinket.png/revision/latest?cb=20070607015403{% endif %}"
+                            width="100%" height="100%"onmousedown="handleMouseDown(event, 'trinket2');">
                         </a>
                         <div class="tooltip-content" id="trinket2Tooltip">
                         {% if character.trinket2 %}
@@ -825,19 +889,19 @@
         </div>
         <div class="line">
             <div class="stat">
-                <h2>{{  character.total_stats.crit  }}</h2>
+                <h2>{{  character.total_stats.crit}}%</h2>
             </h1> Критический удар</h1>
             </div>
             <div class="stat">
-                <h2>{{  character.total_stats.haste_rating  }}</h2>
+                <h2>{{  character.total_stats.haste_rating }}%</h2>
             </h1> Скорость</h1>
             </div>
             <div class="stat">
-                <h2>{{  character.total_stats.mastery    }}</h2>
+                <h2>{{  character.total_stats.mastery }}%</h2>
             </h1> Искустность</h1>
             </div>
             <div class="stat">
-                <h2>{{  character.total_stats.versatility    }}</h2>
+                <h2>{{  character.total_stats.versatility}}%</h2>
             </h1> Универсальность</h1>
             </div>
             <div class="stat">
@@ -852,7 +916,30 @@
 </div>
 <script src="{% static 'style/js/script.js' %}"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-
+<script src="{% static 'style/js/header.js' %}"></script>
+<script>
+    function unequipItem(gearType) {
+    $.ajax({
+        type: "POST",
+        url: "{% url 'unequip_gear' %}",
+        data: {
+            'character_id': {{ character.id }},
+            'gear_type': gearType,
+            'csrfmiddlewaretoken': '{{ csrf_token }}'
+        },
+        success: function (data) {
+            location.reload();
+        },
+        error: function (xhr, errmsg, err) {
+            console.log("Error: " + xhr.status + ": " + xhr.responseText);
+        }
+    });
+    }
+    function handleMouseDown(event, gearType) {
+        if (event.button === 2) { 
+            unequipItem(gearType);
+        }
+    }
+</script>
 </body>
 </html>

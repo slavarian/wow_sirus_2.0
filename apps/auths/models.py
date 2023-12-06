@@ -74,6 +74,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(
         verbose_name='аватарка',
         upload_to='avatars/',  
+        default='static/default_avatar.png',
         null=True,
         blank=True,
     )

@@ -33,7 +33,7 @@ class UploadedFile(models.Model):
 class FileUploadForm(forms.ModelForm):
     class Meta:
         model = UploadedFile
-        fields = ['heading', 'title', 'file']
+        fields = ['heading', 'title']
         widgets = {
             'uploaded_by': forms.HiddenInput(),
         }

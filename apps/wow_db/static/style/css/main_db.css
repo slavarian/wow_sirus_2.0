@@ -26,7 +26,6 @@ body {
     z-index: 10;
     color: aliceblue;
     justify-content: space-around;
-    
 }
 
 #logo {
@@ -97,40 +96,36 @@ body {
 }
 
 
-#server_logo {
-    width: 70%;
-    height: 80%;
-    margin-left: 15%;
+
+div {
+    position: relative;
+   
+  }
+
+h2 {
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+
+.a {
+    text-decoration: none;
+    color: inherit;
 }
+
+
 
 a {
     text-decoration: none;
     color: inherit;
     position: relative;
     display: inline-block;
-}
-
-.a1 {
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-    display: inline-block;
   }
 
-div {
-    position: relative;
-  
-}
 
-h2 {
-    margin: 0;
-    padding: 20px;
-  
-    color: #fff;
-    transition: background-color 0.3s ease;
-  }
 
-.a1::after {
+.a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -141,9 +136,51 @@ h2 {
     transition: width 0.3s ease;
   }
 
-.a1:hover::after {
+
+.a:hover::after {
     width: 100%;
   }
+
+
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.438);
+    background-color: rgba(0, 0, 0, 0.493);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    z-index: 7; 
+    width: 200px;
+    top: 100px;
+  }
+  
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+.dropdown-content a {
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    color: #eeeeee;
+    transition: background-color 0.3s ease;
+}
+  
+.dropdown-content a:hover {
+    background-color: #424242;
+  }
+
+#server_logo {
+    width: 70%;
+    height: 80%;
+    margin-left: 15%;
+}
 
 .armor_list {
     background-color: #202020;
@@ -330,23 +367,3 @@ th:hover {
     backdrop-filter: blur(15px);
   }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background-color: yellow; 
-    transition: width 0.3s ease;
-  }
-
-
-a:hover::after {
-    width: 100%;
-  }

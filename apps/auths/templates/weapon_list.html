@@ -26,10 +26,10 @@
                 <p class="purple">{{ armor.title }}</p>
                         <p class="yellow">Уровень предмета: {{ armor.item_level }}</p>
                         <p>Качество: {{ armor.quality }}</p>
-                        <p>Тип оружия:  {{ character.weapon1.waepon_type }} </p>
-                                <p>Урон: {{ character.weapon1.min_damage }} - {{ character.weapon1.max_damage }}</p>
-                                <p>({{ character.weapon1.damage_per_second }} ед.урона в секнуду)</p>
-                                <p>Скорость: {{ character.weapon1.attack_speed }}</p>
+                        <p>Тип оружия:  {{ armor.waepon_type }} </p>
+                                <p>Урон: {{ armor.min_damage }} - {{ armor.max_damage }}</p>
+                                <p>({{ armor.damage_per_second }} ед.урона в секнуду)</p>
+                                <p>Скорость: {{ armor.attack_speed }}</p>
                         {% if armor.strength %}
                         <p>+{{ armor.strength }} к силе</p>
                         {% endif %}

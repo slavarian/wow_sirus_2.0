@@ -17,6 +17,7 @@ from .forms.character_form import GameCharacterForm
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
 from django.urls import reverse
+from django.contrib import messages
 
 @login_required
 def profile(request):
@@ -37,9 +38,10 @@ def profile(request):
                 uploaded_file = form.save(commit=False)
                 uploaded_file.uploaded_by = request.user
                 uploaded_file.save()
-                return redirect('download')
+               
         else:
             form = FileUploadForm(user=request.user)
+            
         if request.method == 'POST':
             news_form = NewsCreationForm(request.POST)
             if news_form.is_valid():
@@ -206,6 +208,51 @@ def equip_armor(request, character_id, armor_id, armor_type):
     character.save()
     
     return HttpResponseRedirect(reverse('character_info', kwargs={'character_id': character_id}))
+
+from django.http import JsonResponse
+
+def unequip_gear(request):
+    if request.method == 'POST':
+        character_id = request.POST.get('character_id')
+        gear_type = request.POST.get('gear_type')
+        character = Character.objects.get(id=character_id)
+
+        if gear_type == 'bodyArmor':
+            character.body_armor = None
+        elif gear_type == 'headArmor':
+            character.head_armor = None
+        elif gear_type == 'amulet':
+            character.amulet = None
+        elif gear_type =='shoulder_armor':
+            character.shoulder_armor = None
+        elif gear_type == 'back_armor':
+            character.back_armor = None
+        elif gear_type == 'wrist_armor':
+            character.wrist_armor = None
+        elif gear_type == 'gloves_armor':
+            character.gloves_armor = None
+        elif gear_type == 'belt':
+            character.belt_armor = None
+        elif gear_type == 'legs_armor':
+            character.legs_armor = None
+        elif gear_type == 'boots_armor':
+            character.boots_armor = None
+        elif gear_type == 'ring1':
+            character.ring1 = None
+        elif gear_type == 'ring2':
+            character.ring2 = None
+        elif gear_type == 'trinket1':
+            character.trinket1 = None
+        elif gear_type == 'trinket2':
+            character.trinket2 = None
+        elif gear_type == 'weapon1':
+            character.weapon1 = None
+        elif gear_type == 'weapon2':
+             character.weapon2 = None
+        character.save()
+
+    return JsonResponse({'status': 'error',})
+
 
 
 def create_character(request):
