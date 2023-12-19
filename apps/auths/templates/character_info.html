@@ -44,13 +44,13 @@
                 <img class="img_class" src="{{ character.specialization.class_logo.url }}" alt="{{ character.specialization.title }} Logo" width="130" height="130">
             </div>
             <div class="char_nick">
-                <h1>{{ character.nick_name }}</h1>
-                <h2> {{ character.get_fraction_display }}</h2>
+                <h1 class="purple">{{ character.nick_name }}</h1>
+                <h2>{{ character.get_fraction_display }}</h2>
             </div>
             
         </div>
         <div class="f2">
-            <h1> {{ character.gear_score }} УР. ПРЕДМЕТОВ </h1> 
+            <h1 class="yellow"> {{ character.gear_score }} УР. ПРЕДМЕТОВ </h1> 
             <h3>{{ character.character_level }} {{ character.get_race_display }} {{ character.specialization.title }} ({{ character.specialization.specialization.title }})</h3>
         </div>
     </div>
@@ -937,6 +937,7 @@
     }
     function handleMouseDown(event, gearType) {
         if (event.button === 2) { 
+            event.preventDefault();
             unequipItem(gearType);
         }
     }

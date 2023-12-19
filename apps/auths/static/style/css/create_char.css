@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image: url(https://bnetcmsus-a.akamaihd.net/cms/blog_header/lh/LHR1AHC6005B1568851116886.jpg);
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    color: white;
+}
+
+#character-form {
+    width: 300px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-top: 3px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}

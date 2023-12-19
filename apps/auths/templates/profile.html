@@ -42,14 +42,19 @@
 
             <div class="avatar-container">
                 {% if user.avatar %}
-                <img  src="{{ user.avatar.url }}" alt="Аватар" class="avatar" id="avatar-preview" width="300px" height="300px">
+                    <img src="{{ user.avatar.url }}" alt="Аватар" class="avatar" id="avatar-preview" width="300px" height="300px">
                 {% else %}
-                <p>Нет аватарки</p>
+                    <p>Нет аватарки</p>
                 {% endif %}
+                
                 <form method="post" enctype="multipart/form-data" class="avatar-form">
                     {% csrf_token %}
-                    <input type="file" name="avatar" id="id_avatar">
-                    <label for="id_avatar" class="btn btn-primary">Изменить аватарку</label>
+                    {{ avatar_form.as_p }}
+                    
+                    <input type="file" name="avatar" id="id_avatar" style="display: none;" onchange="updateFileName()">
+                    <label for="id_avatar" class="btn btn-primary btn-choose-file">Выбрать аватар</label>
+                    
+                    <button type="submit" class="btn btn-success btn-apply-avatar">Применить</button>
                 </form>
             </div>
 

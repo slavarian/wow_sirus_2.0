@@ -27,7 +27,7 @@ def profile(request):
     if request.method == 'POST':
         avatar_form = AvatarChangeForm(request.POST, request.FILES, instance=request.user)
         if avatar_form.is_valid():
-            avatar_form.save()
+            avatar_form.save() 
 
     avatar_form = AvatarChangeForm(instance=request.user)
 
@@ -57,6 +57,7 @@ def profile(request):
 
     return render(request, 'profile.html', {'user_account': user_account, 'characters': 
                                             characters ,  'avatar_form': avatar_form})
+
 
 
 def character_info(request, character_id):

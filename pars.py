@@ -2,9 +2,7 @@ import requests
 import xml.etree.ElementTree as ET
 import json
 import os
-import re
 import django
-from bs4 import BeautifulSoup
 from parsdict import item_ids 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.base')
 django.setup()
@@ -49,13 +47,7 @@ for i in item_ids:
     item_reqlevel = json_dict.get("reqlevel", "")
     icon_tag = root.find(".//icon")
     ins_tag = root.find(".//ins")
-    # html_tooltip = root.find(".//htmlTooltip").text
-    # soup = BeautifulSoup(html_tooltip, 'html.parser')
-    # use_span = soup.find('span', class_='q2')
-    # if use_span:
-    #     use_text = use_span.get_text(strip=True)
-    # else:
-    #     use_text = None
+ 
     
     if icon_tag is not None:
         icon_content = icon_tag.text.strip()
@@ -65,7 +57,7 @@ for i in item_ids:
         print("Тег 'icon' не найден в XML-данных.")
 
 
-    body_armor = Body_armor(
+    body_armor = Head_armor(
         title=item_name,
         item_level=item_level,
         quality=item_quality,

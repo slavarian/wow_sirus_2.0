@@ -134,14 +134,16 @@ body {
 }
 
 #info_box {
-    padding-top: 20%;
+    padding-top: 12%;
     align-items: center;
     justify-content: center;
     text-align: center;
 }
 
 #horde {
-    background-color: red;
+    background-image: url(https://bnetcmsus-a.akamaihd.net/cms/blog_header/i7/I7JIVP1FQMT31489502815753.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     width: 50%;
     height: 100%;
     display: flex;
@@ -150,7 +152,9 @@ body {
    
 }
 #allience {
-    background-color: rgb(17, 0, 255);
+    background-image: url(https://i.playground.ru/p/R4SD64GBFwKESBYt0ZQd6A.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     width: 50%;
     height: 100%;
     display: flex;
@@ -159,7 +163,8 @@ body {
 }
 
 #horde_box {
-    background-color: brown;
+
+    backdrop-filter: blur(10px);
     width: 50%;
     height: 100%;
     display: flex;
@@ -169,7 +174,8 @@ body {
 }
 
 #allience_box {
-    background-color: rgb(199, 184, 184);
+
+    backdrop-filter: blur(10px);
     width: 50%;
     height: 100%;
     display: flex;
@@ -267,3 +273,32 @@ a:hover::after {
 .dropdown-content a:hover {
     background-color: #424242;
   }
+
+.red_btn {
+    border-radius: 25px;
+    color: white;
+    background-color: rgba(182, 0, 0, 0.733);
+    border: none;
+}
+
+.blue_btn {
+    border-radius: 25px;
+    color: white;
+    background-color:rgba(1, 1, 221, 0.712);
+    border: none;
+}
+
+.green_btn {
+    width: 200px;
+    height: 60px;
+    border-radius: 15px;
+    color: white;
+    background-color:rgba(0, 165, 14, 0.712);
+    border: none;
+}
+
+#main_logo {
+    width: 400px;
+    height: 200px;
+
+}

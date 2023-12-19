@@ -1,9 +1,10 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Lexend', sans-serif;
     margin: 0;
-    padding: 0;
-    background-image: url(https://gagadget.com/media/cache/b6/e6/b6e61844432dfcccb38c0cd593f9ef49.jpg);
-
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-image: url(https://bnetcmsus-a.akamaihd.net/cms/blog_header/lh/LHR1AHC6005B1568851116886.jpg);
 }
 
 .container {
@@ -56,7 +57,7 @@ body {
 
 .tooltip {
     border-radius: 5px;
-    border: 2px solid purple;
+
     position: absolute;
     z-index: 2;
     width: 100%;
@@ -171,12 +172,12 @@ body {
 .frac {
     width: 100%;
     height:15%;
-
     display: flex;
     box-sizing: border-box;
     justify-content: center;
     margin-top: 100px;
- 
+    background-color: rgba(0, 0, 0, 0.493);
+    color: white;
    
     
 }
@@ -290,7 +291,6 @@ body {
 .waepon_center {
     width: 30%;
     height: 100%;
-    background-color: #483c70;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -302,7 +302,6 @@ body {
 .char_center {
     width: 60%;
     height: 100%;
-    background-color: #8075be;
 }
 
 .line {
@@ -317,11 +316,13 @@ body {
 .stat {
     width: 19%;
     height: 100%;
-    background-color: #8075be;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.438);
+    background-color: rgba(0, 0, 0, 0.493);
+    color: white;
 }
 
 .f_img {
@@ -342,7 +343,6 @@ body {
 .char_info{
     width: 30%;
     height: 100%;
-    background-color: #464646;
     margin-left: 2%;
 }
 

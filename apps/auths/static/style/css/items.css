@@ -1,10 +1,15 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Lexend', sans-serif;
     margin: 0;
-    padding: 0;
-   
+    color: white;
+    background-size: cover;
+    background-attachment: fixed;
     background-repeat: no-repeat;
-   
+    background-image: url(https://bnetcmsus-a.akamaihd.net/cms/blog_header/lh/LHR1AHC6005B1568851116886.jpg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 
