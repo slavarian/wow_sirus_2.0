@@ -30,12 +30,13 @@ class UploadedFile(models.Model):
     def __str__(self):
         return str(self.file)
 
+
 class FileUploadForm(forms.ModelForm):
     class Meta:
         model = UploadedFile
-        fields = ['heading', 'title']
+        fields = ['heading', 'title', 'file']
         widgets = {
-            'uploaded_by': forms.HiddenInput(),
+            'uploaded_by': forms.HiddenInput(),  # Предполагается, что 'uploaded_by' - ForeignKey, а не HiddenInput
         }
 
     def __init__(self, *args, **kwargs):
