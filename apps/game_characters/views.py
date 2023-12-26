@@ -10,7 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def character_raiting(request):
     characters = Character.objects.all()
     character_sorted = sorted(characters, key=lambda x: x.gear_score, reverse=True)
-    paginator = Paginator(characters, 10)
+    paginator = Paginator(character_sorted, 10)
     page = request.GET.get('page')
 
     try:
@@ -20,8 +20,7 @@ def character_raiting(request):
     except EmptyPage:
         characters = paginator.page(paginator.num_pages)
 
-    return render(request, 'character_raiting.html', {'character_sorted': character_sorted, 'characters': characters})
-
+    return render(request, 'character_raiting.html', {'characters': characters})
 
 def character_views(request, character_id):
     character = get_object_or_404(Character, id=character_id)

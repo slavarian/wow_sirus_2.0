@@ -6,7 +6,7 @@ import xml.etree.ElementTree as ET
 driver = webdriver.Chrome()
 
 
-url = f"https://www.wowhead.com/items/armor/slot:1/type:1"
+url = f"https://www.wowhead.com/items/weapons/type:2:18:3:16:19"
 driver.get(url)
 
 item_links = driver.find_elements(By.CSS_SELECTOR, 'a[href*="item="]')

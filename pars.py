@@ -57,14 +57,14 @@ for i in item_ids:
         print("Тег 'icon' не найден в XML-данных.")
 
 
-    body_armor = Head_armor(
+    body_armor = Weapon(
         title=item_name,
         item_level=item_level,
         quality=item_quality,
-        # waepon_type = item_subclass,
-        armor_type=item_subclass,
+        waepon_type = item_subclass,
+        # armor_type=item_subclass,
         item_img=item_img_url,
-        armor=int(item_armor) if item_armor else None,
+        # armor=int(item_armor) if item_armor else None,
         strength=int(item_str) if item_str else None,
         stamina=int(item_sta) if item_sta else None, 
         agility=int(item_agi) if item_agi else None,
@@ -75,10 +75,10 @@ for i in item_ids:
         mastery=int(item_mastery) if item_mastery else None,
         required_level = int(item_reqlevel) if item_reqlevel else None,
         # unique_spell=use_text,
-        # min_damage = int(min_damage) if min_damage else None,
-        # max_damage = int(max_damage) if max_damage else None,
-        # damage_per_second = dps,
-        # attack_speed =float(atk_speed)
+        min_damage = int(min_damage) if min_damage else None,
+        max_damage = int(max_damage) if max_damage else None,
+        damage_per_second = dps,
+        attack_speed =float(atk_speed)
             )
 
 
